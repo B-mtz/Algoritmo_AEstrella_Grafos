@@ -8,7 +8,9 @@ public class GetCities extends JFrame{
     private JPanel contentPane = new JPanel(new BorderLayout());
     private JTable cities;
     private JPanel panelNorth, panelCenter, panelSuth;
-    private Font font = new Font("Aveir",Font.BOLD,16);
+    private Font font = new Font("Sans",Font.BOLD,16);
+    private Font font1 = new Font("Sans",Font.PLAIN,16);
+    private Font font2 = new Font("Sans",Font.PLAIN,14);
 
     public GetCities(){
         super("Ingresa los datos de las cuidades");
@@ -42,20 +44,19 @@ public class GetCities extends JFrame{
         panelNorth.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         panelNorth.setBackground(Color.DARK_GRAY);
         JLabel lbTitle = new JLabel("Ingresa las cuidades a evaluar");
-        lbTitle.setFont(font);
+        lbTitle.setFont(font1);
         lbTitle.setForeground(Color.ORANGE);
         panelNorth.add(lbTitle);
     }
     public void componentsPanelCenter(){
         panelCenter.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         panelCenter.setBackground(Color.DARK_GRAY);
-        Font font = new Font("Aveir",Font.BOLD,14);
         cities = new JTable();
         DefaultTableModel citiesModel = new DefaultTableModel();
         String[] titles = {"Nombre", "Longitud", "Altitud"};
         String[][] data ={{"Nombre", "Longitud", "Altitud"},{"Nombre", "Longitud", "Altitud"}};
         citiesModel.setColumnIdentifiers(titles);
-        cities.getTableHeader().setFont(font);
+        cities.getTableHeader().setFont(font2);
         cities.getTableHeader().setBackground(Color.DARK_GRAY);
         cities.getTableHeader().setForeground(Color.WHITE);
         cities.setBackground(Color.WHITE);
@@ -63,7 +64,7 @@ public class GetCities extends JFrame{
         cities.setSelectionBackground(Color.DARK_GRAY);
         cities.setSelectionForeground(Color.ORANGE);
         cities.setRowHeight(20);
-        cities.setFont(font);
+        cities.setFont(font2);
         cities.setModel(citiesModel);
         JScrollPane scrollBarCities = new JScrollPane(cities);
         panelCenter.add(scrollBarCities);
@@ -87,9 +88,9 @@ public class GetCities extends JFrame{
         JLabel lbLatitude = new JLabel("Latitud");
         lbLatitude.setHorizontalAlignment(0);
         lbLatitude.setForeground(Color.WHITE);
-        lbName.setFont(font);
-        lbLongitude.setFont(font);
-        lbLatitude.setFont(font);
+        lbName.setFont(font2);
+        lbLongitude.setFont(font2);
+        lbLatitude.setFont(font2);
         panelLabel.add(lbName);
         panelLabel.add(lbLatitude);
         panelLabel.add(lbLongitude);
@@ -97,17 +98,17 @@ public class GetCities extends JFrame{
         JPanel panelTextField = new JPanel(new FlowLayout());
         panelTextField.setBackground(Color.DARK_GRAY);
         JTextField txtName = new JTextField();
-        txtName.setColumns(9);
+        txtName.setColumns(10);
         txtName.setHorizontalAlignment(0);
         JTextField txtLongitude = new JTextField();
-        txtLongitude.setColumns(9);
+        txtLongitude.setColumns(10);
         txtLongitude.setHorizontalAlignment(0);
         JTextField txtLatitude = new JTextField();
-        txtLatitude.setColumns(9);
+        txtLatitude.setColumns(10);
         txtLatitude.setHorizontalAlignment(0);
-        txtName.setFont(font);
-        txtLongitude.setFont(font);
-        txtLatitude.setFont(font);
+        txtName.setFont(font2);
+        txtLongitude.setFont(font2);
+        txtLatitude.setFont(font2);
         panelTextField.add(txtName);
         panelTextField.add(txtLongitude);
         panelTextField.add(txtLatitude);
@@ -121,12 +122,18 @@ public class GetCities extends JFrame{
         panelBtn.setOpaque(true);
         JButton btnDelete = new JButton("Eliminar");
         btnDelete.setFont(font);
+        btnDelete.setBackground(new Color(248, 54, 115));
+        btnDelete.setForeground(Color.WHITE);
         panelBtn.add(btnDelete);
         JButton btnAdd = new JButton("Añadir");
         btnAdd.setFont(font);
+        btnAdd.setBackground(new Color(109, 157, 31));
+        btnAdd.setForeground(Color.WHITE);
         panelBtn.add(btnAdd);
         JButton btnSave = new JButton("Guardar");
         btnSave.setFont(font);
+        btnSave.setBackground(new Color(79, 195, 247));
+        btnSave.setForeground(Color.WHITE);
         panelBtn.add(btnSave);
 
         panelSuth.add(panelLabelTxt,BorderLayout.NORTH);

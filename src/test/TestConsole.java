@@ -1,9 +1,12 @@
 package test;
 
-import ui.GetCities;
+import com.formdev.flatlaf.FlatDarkLaf;
+import ui.Ui_Main;
 
 public class TestConsole {
     public static void main(String[] args) {
-        GetCities getCities = new GetCities();
+        FlatDarkLaf.setup();
+        //GetCities getCities = new GetCities();
+        Ui_Main connections = new Ui_Main();
     }
 }
