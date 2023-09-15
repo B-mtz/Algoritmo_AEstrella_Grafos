@@ -12,17 +12,17 @@ public class GetCities extends JFrame{
     private Font font2 = new Font("Sans",Font.PLAIN,14);
     public JTable tableCity;
     public DefaultTableModel modelCity;
-    public JButton btnAdd,btnDelete,btnSave;
+    public JButton btnAdd,btnDelete,btnSave,btnIcon;
     public JTextField txtName,txtLatitude,txtLongitude;
+    private  Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252), color3 = new Color(231, 233, 253);
 
     public GetCities(){
         super("Ingresa los datos de las cuidades");
         this.setSize(500, 640);
         this.setContentPane(contentPane);
-        contentPane.setBackground(Color.DARK_GRAY);
 
         //content panels
-        panelNorth = new JPanel(new FlowLayout());
+        panelNorth = new JPanel(new BorderLayout());
         panelCenter = new JPanel();
         panelSuth = new JPanel(new BorderLayout());
 
@@ -43,28 +43,28 @@ public class GetCities extends JFrame{
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    public void componentsPanelNorth(){
-        panelNorth.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        panelNorth.setBackground(Color.DARK_GRAY);
+    public void componentsPanelNorth() {
+        panelNorth.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbTitle = new JLabel("Ingresa las cuidades a evaluar");
         lbTitle.setFont(font1);
-        lbTitle.setForeground(Color.ORANGE);
-        panelNorth.add(lbTitle);
+        lbTitle.setForeground(color1);
+        lbTitle.setHorizontalAlignment(0);
+        btnIcon = new JButton();
+        btnIcon.setIcon(new ImageIcon("src/library/txt.png"));
+        panelNorth.add(lbTitle,BorderLayout.CENTER);
+        panelNorth.add(btnIcon, BorderLayout.WEST);
     }
     public void componentsPanelCenter(){
         panelCenter.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        panelCenter.setBackground(Color.DARK_GRAY);
         tableCity = new JTable();
         modelCity = new DefaultTableModel();
         String[] titles = {"Nombre", "Longitud", "Altitud"};
         modelCity.setColumnIdentifiers(titles);
-        tableCity.getTableHeader().setFont(font2);
-        tableCity.getTableHeader().setBackground(Color.DARK_GRAY);
+        tableCity.getTableHeader().setBackground(color1);
         tableCity.getTableHeader().setForeground(Color.WHITE);
-        tableCity.setBackground(Color.WHITE);
-        tableCity.setForeground(Color.DARK_GRAY);
-        tableCity.setSelectionBackground(Color.DARK_GRAY);
-        tableCity.setSelectionForeground(Color.ORANGE);
+        tableCity.getTableHeader().setFont(font2);
+        tableCity.setSelectionBackground(color2);
+        tableCity.setSelectionForeground(color1);
         tableCity.setRowHeight(20);
         tableCity.setFont(font2);
         tableCity.setModel(modelCity);
@@ -73,21 +73,16 @@ public class GetCities extends JFrame{
     }
     public void componentsPanelSouth(){
         panelSuth.setBorder(BorderFactory.createEmptyBorder(20,20,30,20));
-        panelSuth.setBackground(Color.DARK_GRAY);
         JPanel panelLabelTxt = new JPanel( new BorderLayout());
         //Labels
         JPanel panelLabel = new JPanel(new GridLayout(1,3));
         panelLabel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
-        panelLabel.setBackground(Color.DARK_GRAY);
         JLabel lbName = new JLabel("Nombre");
         lbName.setHorizontalAlignment(0);
-        lbName.setForeground(Color.WHITE);
         JLabel lbLongitude = new JLabel("Longitud");
         lbLongitude.setHorizontalAlignment(0);
-        lbLongitude.setForeground(Color.WHITE);
         JLabel lbLatitude = new JLabel("Latitud");
         lbLatitude.setHorizontalAlignment(0);
-        lbLatitude.setForeground(Color.WHITE);
         lbName.setFont(font2);
         lbLongitude.setFont(font2);
         lbLatitude.setFont(font2);
@@ -96,15 +91,17 @@ public class GetCities extends JFrame{
         panelLabel.add(lbLongitude);
         //JTextFields
         JPanel panelTextField = new JPanel(new FlowLayout());
-        panelTextField.setBackground(Color.DARK_GRAY);
         txtName = new JTextField();
         txtName.setColumns(10);
+        txtName.setBackground(color3);
         txtName.setHorizontalAlignment(0);
         txtLongitude = new JTextField();
         txtLongitude.setColumns(10);
+        txtLongitude.setBackground(color3);
         txtLongitude.setHorizontalAlignment(0);
         txtLatitude = new JTextField();
         txtLatitude.setColumns(10);
+        txtLatitude.setBackground(color3);
         txtLatitude.setHorizontalAlignment(0);
         txtName.setFont(font2);
         txtLongitude.setFont(font2);
@@ -118,7 +115,6 @@ public class GetCities extends JFrame{
         //JButtons: add and delete
         JPanel panelBtn = new JPanel(new FlowLayout());
         panelBtn.setBorder(BorderFactory.createEmptyBorder(20,10,10,10));
-        panelBtn.setBackground(Color.DARK_GRAY);
         panelBtn.setOpaque(true);
         btnDelete = new JButton("Eliminar");
         btnDelete.setFont(font);
@@ -127,7 +123,7 @@ public class GetCities extends JFrame{
         panelBtn.add(btnDelete);
         btnAdd = new JButton("Añadir");
         btnAdd.setFont(font);
-        btnAdd.setBackground(new Color(109, 157, 31));
+        btnAdd.setBackground(new Color(108, 172, 35));
         btnAdd.setForeground(Color.WHITE);
         panelBtn.add(btnAdd);
         btnSave = new JButton("Guardar");
