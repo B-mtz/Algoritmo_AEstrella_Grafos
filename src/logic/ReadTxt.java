@@ -31,7 +31,7 @@ public class ReadTxt {
                     readLine(br);
                     br.close();
                 } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null,"El formato por linea debe ser: Ciudad_Latitud_Longitud");
+                    JOptionPane.showMessageDialog(null,"\nRevisa que el formato por linea sea:\nCiudad_Longitud_Latitud");
                 }
             } else {
                 // El archivo no es .txt
@@ -48,10 +48,11 @@ public class ReadTxt {
             // separamos el renglon por _
             String[] attributes = line.split("_");
             try {
-                City city = new City(attributes[0],Double.parseDouble(attributes[1]),Double.parseDouble(attributes[1]));
+                City city = new City(attributes[0],Double.parseDouble(attributes[1]),Double.parseDouble(attributes[2]));
                 arrayCities.add(city);
             }catch (Exception exception){
-                JOptionPane.showMessageDialog(null,"Las coordenadas contenidas en el archivo deben ser numeros");
+                JOptionPane.showMessageDialog(null,"No se pudo leer el archivo correctamente\n" +
+                        "\nRevisa que el formato por linea sea:\nCiudad_Longitud_Latitud");
             }
         }
     }
