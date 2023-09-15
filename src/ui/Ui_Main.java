@@ -1,27 +1,30 @@
 package ui;
 
+import com.formdev.flatlaf.ui.FlatRoundBorder;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Ui_Main extends JFrame {
     private JPanel contentPane = new JPanel(new BorderLayout());
     private Font font = new Font("Sans",Font.BOLD,16);
-    private JPanel panelNorth, panelSuth, panelLeft, panelRight;
-    private JScrollPane panelCenter;
     private Font font2 = new Font("Sans",Font.PLAIN,14);
+    private Font font3 = new Font("Sans",Font.PLAIN,12);
+    private JPanel panelNorth, panelSuth,panelCenter, panelLeft, panelRight;
     private JTable cities;
     private JComboBox comboBoxOr, comboBoxDes, comboBoxOr2, comboBoxDes2;
     private JButton btnDelete,btnAdd,btnGenerate,btnReset;
+    private  Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252), color3 = new Color(231, 233, 253);
+
     private int rows,columns;
     public Ui_Main(){
         super("Generar Conexiones y Ruta");
         this.setSize(1280, 720);
         this.setContentPane(contentPane);
-        contentPane.setBackground(Color.DARK_GRAY);
 
         //content panels
         panelNorth = new JPanel(new FlowLayout());
-        panelCenter = new JScrollPane();
+        panelCenter = new JPanel();
         panelSuth = new JPanel();
         panelLeft = new JPanel(new BorderLayout());
         panelRight = new JPanel();
@@ -50,15 +53,14 @@ public class Ui_Main extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     public void componentsPanelNorth(){
-        panelNorth.setBackground(Color.DARK_GRAY);
-        panelNorth.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        panelNorth.setBorder(BorderFactory.createEmptyBorder(0,5,5,5));
     }
     public void componentsPanelCenter(){
-        panelCenter.setBackground(Color.WHITE);
+        panelCenter.setBackground(color3);
+        panelCenter.setBorder(BorderFactory.createLineBorder(color2,2,true));
         panelCenter.add(new JLabel("Hola"));
     }
     public void componentsPanelSouth(){
-        panelSuth.setBackground(Color.DARK_GRAY);
         panelSuth.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
     }
     public void componentsPanelLeft(){
@@ -73,7 +75,7 @@ public class Ui_Main extends JFrame {
         JPanel panelLeftNorthTitle = new JPanel(new FlowLayout());
         JLabel title = new JLabel("Generar Conexiones");
         title.setFont(font);
-        title.setForeground(Color.ORANGE);
+        title.setForeground(color1);
         panelLeftNorthTitle.add(title);
         //## PanelLeftNorthContent: panelLeftNorthContentLabls, pabelLeftNorthContentJCombo, panelLeftNorthBtns
         JPanel panelLeftNorthContent = new JPanel(new BorderLayout());
@@ -92,8 +94,6 @@ public class Ui_Main extends JFrame {
         JPanel pabelLeftNorthContentJCombo = new JPanel(gridLayout);
         comboBoxOr = new JComboBox();
         comboBoxDes = new JComboBox();
-        comboBoxOr.addItem("Juquila");
-        comboBoxDes.addItem("Santa catarinaJuquila");
         pabelLeftNorthContentJCombo.add(comboBoxOr);
         pabelLeftNorthContentJCombo.add(comboBoxDes);
         //### panelLeftNorthBtns
@@ -101,12 +101,12 @@ public class Ui_Main extends JFrame {
         panelLeftNorthBtns.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
         btnDelete = new JButton("Eliminar");
         btnDelete.setFont(font);
-        btnDelete.setBackground(new Color(248, 54, 115));
+        btnDelete.setBackground(color1);
         btnDelete.setForeground(Color.WHITE);
         panelLeftNorthBtns.add(btnDelete);
         btnAdd = new JButton("Añadir");
         btnAdd.setFont(font);
-        btnAdd.setBackground(new Color(109, 157, 31));
+        btnAdd.setBackground(color1);
         btnAdd.setForeground(Color.WHITE);
         panelLeftNorthBtns.add(btnAdd);
         panelLeftNorthContent.add(panelLeftNorthContetnLabels,BorderLayout.NORTH);
@@ -122,7 +122,7 @@ public class Ui_Main extends JFrame {
         JPanel panelLeftSouthTitle = new JPanel(new FlowLayout());
         JLabel title2 = new JLabel("Generar Ruta");
         title2.setFont(font);
-        title2.setForeground(Color.ORANGE);
+        title2.setForeground(color1);
         panelLeftSouthTitle.add(title2);
         //##  PanelLeftSouthContent: panelLeftsouthContetnLabels, panelLeftSouthContentJCombo, panelLeftSouthBtns
         JPanel PanelLeftSouthContent = new JPanel(new BorderLayout());
@@ -141,23 +141,21 @@ public class Ui_Main extends JFrame {
         JPanel panelLeftSouthContentJCombo = new JPanel(gridLayout);
         comboBoxOr2 = new JComboBox();
         comboBoxDes2 = new JComboBox();
-        comboBoxOr2.addItem("Juquila");
-        comboBoxDes2.addItem("Santa catarinaJuquila");
         panelLeftSouthContentJCombo.add(comboBoxOr2);
         panelLeftSouthContentJCombo.add(comboBoxDes2);
         //### panelLeftSouthBtns
         JPanel panelLeftSouthBtns = new JPanel(new FlowLayout());
         panelLeftSouthBtns.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
-        btnGenerate = new JButton("Generar");
-        btnGenerate.setFont(font);
-        btnGenerate.setBackground(new Color(248, 54, 115));
-        btnGenerate.setForeground(Color.WHITE);
-        panelLeftSouthBtns.add(btnGenerate);
         btnReset= new JButton("Reiniciar");
         btnReset.setFont(font);
-        btnReset.setBackground(new Color(109, 157, 31));
+        btnReset.setBackground(color1);
         btnReset.setForeground(Color.WHITE);
         panelLeftSouthBtns.add(btnReset);
+        btnGenerate = new JButton("Generar");
+        btnGenerate.setFont(font);
+        btnGenerate.setBackground(color1);
+        btnGenerate.setForeground(Color.WHITE);
+        panelLeftSouthBtns.add(btnGenerate);
         PanelLeftSouthContent.add(panelLeftsouthContetnLabels,BorderLayout.NORTH);
         PanelLeftSouthContent.add(panelLeftSouthContentJCombo,BorderLayout.CENTER);
         PanelLeftSouthContent.add(panelLeftSouthBtns, BorderLayout.SOUTH);
@@ -171,7 +169,6 @@ public class Ui_Main extends JFrame {
 
     }
     public void componentsPanelRight(){
-        panelRight.setBackground(Color.DARK_GRAY);
         panelRight.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
     }
 }
