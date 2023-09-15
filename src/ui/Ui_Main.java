@@ -14,8 +14,8 @@ public class Ui_Main extends JFrame {
     private JButton btnDelete,btnAdd,btnGenerate,btnReset;
     private int rows,columns;
     public Ui_Main(){
-        super("Ingresa los datos de las cuidades");
-        this.setSize(1000, 800);
+        super("Generar Conexiones y Ruta");
+        this.setSize(1280, 720);
         this.setContentPane(contentPane);
         contentPane.setBackground(Color.DARK_GRAY);
 
@@ -113,7 +113,7 @@ public class Ui_Main extends JFrame {
         panelLeftNorthContent.add(pabelLeftNorthContentJCombo,BorderLayout.CENTER);
         panelLeftNorthContent.add(panelLeftNorthBtns, BorderLayout.SOUTH);
 
-        panelLeftNorth.setBorder(BorderFactory.createEmptyBorder(80,0,0,0));
+        panelLeftNorth.setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
         panelLeftNorth.add(panelLeftNorthTitle,BorderLayout.NORTH);
         panelLeftNorth.add(panelLeftNorthContent, BorderLayout.CENTER);
 
@@ -162,7 +162,7 @@ public class Ui_Main extends JFrame {
         PanelLeftSouthContent.add(panelLeftSouthContentJCombo,BorderLayout.CENTER);
         PanelLeftSouthContent.add(panelLeftSouthBtns, BorderLayout.SOUTH);
 
-        panelLeftSouth.setBorder(BorderFactory.createEmptyBorder(0,0,200,0));
+        panelLeftSouth.setBorder(BorderFactory.createEmptyBorder(0,0,150,0));
         panelLeftSouth.add(panelLeftSouthTitle,BorderLayout.NORTH);
         panelLeftSouth.add(PanelLeftSouthContent, BorderLayout.CENTER);
 

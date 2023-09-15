@@ -1,10 +1,10 @@
 package entities;
 
-public class Registers {
-    private Cities city, origin;
+public class Register {
+    private City city, origin;
     double cost, heuristic,total;
 
-    public Registers(Cities city, double cost, double heuristic, double total, Cities origin) {
+    public Register(City city, double cost, double heuristic, double total, City origin) {
         this.city = city;
         this.origin = origin;
         this.cost = cost;

@@ -6,11 +6,14 @@ import java.awt.*;
 
 public class GetCities extends JFrame{
     private JPanel contentPane = new JPanel(new BorderLayout());
-    private JTable cities;
     private JPanel panelNorth, panelCenter, panelSuth;
     private Font font = new Font("Sans",Font.BOLD,16);
     private Font font1 = new Font("Sans",Font.PLAIN,16);
     private Font font2 = new Font("Sans",Font.PLAIN,14);
+    public JTable tableCity;
+    public DefaultTableModel modelCity;
+    public JButton btnAdd,btnDelete,btnSave;
+    public JTextField txtName,txtLatitude,txtLongitude;
 
     public GetCities(){
         super("Ingresa los datos de las cuidades");
@@ -51,25 +54,22 @@ public class GetCities extends JFrame{
     public void componentsPanelCenter(){
         panelCenter.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         panelCenter.setBackground(Color.DARK_GRAY);
-        cities = new JTable();
-        DefaultTableModel citiesModel = new DefaultTableModel();
+        tableCity = new JTable();
+        modelCity = new DefaultTableModel();
         String[] titles = {"Nombre", "Longitud", "Altitud"};
-        String[][] data ={{"Nombre", "Longitud", "Altitud"},{"Nombre", "Longitud", "Altitud"}};
-        citiesModel.setColumnIdentifiers(titles);
-        cities.getTableHeader().setFont(font2);
-        cities.getTableHeader().setBackground(Color.DARK_GRAY);
-        cities.getTableHeader().setForeground(Color.WHITE);
-        cities.setBackground(Color.WHITE);
-        cities.setForeground(Color.DARK_GRAY);
-        cities.setSelectionBackground(Color.DARK_GRAY);
-        cities.setSelectionForeground(Color.ORANGE);
-        cities.setRowHeight(20);
-        cities.setFont(font2);
-        cities.setModel(citiesModel);
-        JScrollPane scrollBarCities = new JScrollPane(cities);
+        modelCity.setColumnIdentifiers(titles);
+        tableCity.getTableHeader().setFont(font2);
+        tableCity.getTableHeader().setBackground(Color.DARK_GRAY);
+        tableCity.getTableHeader().setForeground(Color.WHITE);
+        tableCity.setBackground(Color.WHITE);
+        tableCity.setForeground(Color.DARK_GRAY);
+        tableCity.setSelectionBackground(Color.DARK_GRAY);
+        tableCity.setSelectionForeground(Color.ORANGE);
+        tableCity.setRowHeight(20);
+        tableCity.setFont(font2);
+        tableCity.setModel(modelCity);
+        JScrollPane scrollBarCities = new JScrollPane(tableCity);
         panelCenter.add(scrollBarCities);
-
-        citiesModel.setDataVector(data,titles);
     }
     public void componentsPanelSouth(){
         panelSuth.setBorder(BorderFactory.createEmptyBorder(20,20,30,20));
@@ -97,21 +97,21 @@ public class GetCities extends JFrame{
         //JTextFields
         JPanel panelTextField = new JPanel(new FlowLayout());
         panelTextField.setBackground(Color.DARK_GRAY);
-        JTextField txtName = new JTextField();
+        txtName = new JTextField();
         txtName.setColumns(10);
         txtName.setHorizontalAlignment(0);
-        JTextField txtLongitude = new JTextField();
+        txtLongitude = new JTextField();
         txtLongitude.setColumns(10);
         txtLongitude.setHorizontalAlignment(0);
-        JTextField txtLatitude = new JTextField();
+        txtLatitude = new JTextField();
         txtLatitude.setColumns(10);
         txtLatitude.setHorizontalAlignment(0);
         txtName.setFont(font2);
         txtLongitude.setFont(font2);
         txtLatitude.setFont(font2);
         panelTextField.add(txtName);
-        panelTextField.add(txtLongitude);
         panelTextField.add(txtLatitude);
+        panelTextField.add(txtLongitude);
         //Labels and JTextFields
         panelLabelTxt.add(panelLabel, BorderLayout.NORTH);
         panelLabelTxt.add(panelTextField, BorderLayout.CENTER);
@@ -120,17 +120,17 @@ public class GetCities extends JFrame{
         panelBtn.setBorder(BorderFactory.createEmptyBorder(20,10,10,10));
         panelBtn.setBackground(Color.DARK_GRAY);
         panelBtn.setOpaque(true);
-        JButton btnDelete = new JButton("Eliminar");
+        btnDelete = new JButton("Eliminar");
         btnDelete.setFont(font);
         btnDelete.setBackground(new Color(248, 54, 115));
         btnDelete.setForeground(Color.WHITE);
         panelBtn.add(btnDelete);
-        JButton btnAdd = new JButton("Añadir");
+        btnAdd = new JButton("Añadir");
         btnAdd.setFont(font);
         btnAdd.setBackground(new Color(109, 157, 31));
         btnAdd.setForeground(Color.WHITE);
         panelBtn.add(btnAdd);
-        JButton btnSave = new JButton("Guardar");
+        btnSave = new JButton("Guardar");
         btnSave.setFont(font);
         btnSave.setBackground(new Color(79, 195, 247));
         btnSave.setForeground(Color.WHITE);
