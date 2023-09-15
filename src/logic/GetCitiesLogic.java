@@ -16,9 +16,11 @@ public class GetCitiesLogic implements ActionListener {
     private ArrayList<City> arrayCities = new ArrayList<>();
     public GetCitiesLogic(GetCities getCitiesUi){
         this.getCitiesUi = getCitiesUi;
+        //Se añaden eventos a los botones
        getCitiesUi.btnDelete.addActionListener(this);
        getCitiesUi.btnAdd.addActionListener(this);
        getCitiesUi.btnSave.addActionListener(this);
+       getCitiesUi.btnReadFile.addActionListener(this);
     }
     //Crea un nuevo objeto City y añade nueva fila a la tabla
     public void addCity(){
@@ -36,6 +38,7 @@ public class GetCitiesLogic implements ActionListener {
             }
         }
     }
+    //Elimina un objeto del arrayCities y de la tabla
     public void deleteCity(){
         if (getCitiesUi.tableCity.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null,"Seleccione una fila para eliminar");
@@ -52,12 +55,30 @@ public class GetCitiesLogic implements ActionListener {
             getCitiesUi.modelCity.removeRow(getCitiesUi.tableCity.getSelectedRow());
         }
     }
+    //Ejecuta la ventana principal si se tiene mas de 3 cuidades registradas
     public void saveCities() {
         if (arrayCities.size()>2){
             getCitiesUi.dispose();
             Ui_Main uiMain = new Ui_Main();
         }else{
             JOptionPane.showMessageDialog(null,"Agrega minimo 3 cuidades");
+        }
+    }
+    //Se lee el archivo desde el boton
+    public void readFile(){
+        //Se limpia la tabla y el arrayCities
+        arrayCities.clear();
+        while (getCitiesUi.modelCity.getRowCount() > 0) {
+            getCitiesUi.modelCity.removeRow(0);
+        }
+
+        //Se guardan los datos en arrayCities
+        ReadTxt readTxt = new ReadTxt();
+        arrayCities = readTxt.readFile();
+        //se agregan los datos a la tabla
+        for (City city : arrayCities){
+            String  data[] = {city.getName(),String.valueOf(city.getLatitude()),String.valueOf(city.getLongitude())};
+            getCitiesUi.modelCity.addRow(data);
         }
     }
 
@@ -103,7 +124,7 @@ public class GetCitiesLogic implements ActionListener {
         getCitiesUi.txtLatitude.setText("");
         getCitiesUi.txtLongitude.setText("");
     }
-
+    //Acciona los eventos de los botones
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(getCitiesUi.btnDelete)){
@@ -112,6 +133,8 @@ public class GetCitiesLogic implements ActionListener {
             addCity();
         } else if (e.getSource().equals(getCitiesUi.btnSave)) {
             saveCities();
+        } else if (e.getSource().equals(getCitiesUi.btnReadFile)) {
+            readFile();
         }
     }
 }

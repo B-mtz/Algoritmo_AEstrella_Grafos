@@ -12,7 +12,7 @@ public class GetCities extends JFrame{
     private Font font2 = new Font("Sans",Font.PLAIN,14);
     public JTable tableCity;
     public DefaultTableModel modelCity;
-    public JButton btnAdd,btnDelete,btnSave,btnIcon;
+    public JButton btnAdd,btnDelete,btnSave, btnReadFile;
     public JTextField txtName,txtLatitude,txtLongitude;
     private  Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252), color3 = new Color(231, 233, 253);
 
@@ -49,10 +49,10 @@ public class GetCities extends JFrame{
         lbTitle.setFont(font1);
         lbTitle.setForeground(color1);
         lbTitle.setHorizontalAlignment(0);
-        btnIcon = new JButton();
-        btnIcon.setIcon(new ImageIcon("src/library/txt.png"));
+        btnReadFile = new JButton();
+        btnReadFile.setIcon(new ImageIcon("src/library/txt.png"));
         panelNorth.add(lbTitle,BorderLayout.CENTER);
-        panelNorth.add(btnIcon, BorderLayout.WEST);
+        panelNorth.add(btnReadFile, BorderLayout.WEST);
     }
     public void componentsPanelCenter(){
         panelCenter.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
