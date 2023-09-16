@@ -43,6 +43,7 @@ public class GetCities extends JFrame{
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+    ////Componentes del panel Norte
     public void componentsPanelNorth() {
         panelNorth.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbTitle = new JLabel("Ingresa las cuidades a evaluar");
@@ -54,6 +55,7 @@ public class GetCities extends JFrame{
         panelNorth.add(lbTitle,BorderLayout.CENTER);
         panelNorth.add(btnReadFile, BorderLayout.WEST);
     }
+    //Componentes del panel Central
     public void componentsPanelCenter(){
         panelCenter.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         tableCity = new JTable();
@@ -71,6 +73,7 @@ public class GetCities extends JFrame{
         JScrollPane scrollBarCities = new JScrollPane(tableCity);
         panelCenter.add(scrollBarCities);
     }
+    //Componentes del panel Sur
     public void componentsPanelSouth(){
         panelSuth.setBorder(BorderFactory.createEmptyBorder(20,20,30,20));
         JPanel panelLabelTxt = new JPanel( new BorderLayout());

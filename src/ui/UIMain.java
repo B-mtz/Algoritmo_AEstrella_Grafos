@@ -50,17 +50,21 @@ public class UIMain extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+    //Componentes del panel Norte
     public void componentsPanelNorth(){
         panelNorth.setBorder(BorderFactory.createEmptyBorder(0,5,5,5));
     }
+    //Componentes del panel Central
     public void componentsPanelCenter(){
         panelCenter.setBackground(color3);
         panelCenter.setBorder(BorderFactory.createLineBorder(color2,2,true));
         panelCenter.add(new JLabel("Hola"));
     }
+    //Componentes del panel Sur
     public void componentsPanelSouth(){
         panelSuth.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
     }
+    //Componentes del panel izquierdo
     public void componentsPanelLeft(){
         panelLeft.setBorder(BorderFactory.createEmptyBorder(50,20,20,20));
         JPanel panelLeftNorth = new JPanel(new BorderLayout());
@@ -166,6 +170,7 @@ public class UIMain extends JFrame {
         panelLeft.add(panelLeftSouth,BorderLayout.SOUTH);
 
     }
+    //Componentes del panel derecho
     public void componentsPanelRight(){
         panelRight.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
     }

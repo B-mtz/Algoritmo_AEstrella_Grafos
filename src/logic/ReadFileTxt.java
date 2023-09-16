@@ -40,7 +40,7 @@ public class ReadFileTxt {
         }
         return arrayCities;
     }
-
+    //Lee las lineas del documento txt
     private void readLine(BufferedReader br) throws IOException {
         // Leemos cada renglón del archivo
         String line;
