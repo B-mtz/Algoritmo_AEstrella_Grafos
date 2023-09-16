@@ -23,7 +23,7 @@ public class GetCitiesLogic implements ActionListener {
        getCitiesUi.btnReadFile.addActionListener(this);
     }
     //Crea un nuevo objeto City y añade nueva fila a la tabla
-    public void addCity(){
+    private void addCity(){
         //valida datos de entrada
         if (getDataJTxtField()){
             if (validateTable()){
@@ -39,7 +39,7 @@ public class GetCitiesLogic implements ActionListener {
         }
     }
     //Elimina un objeto del arrayCities y de la tabla
-    public void deleteCity(){
+    private void deleteCity(){
         if (getCitiesUi.tableCity.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null,"Seleccione una fila para eliminar");
         }else{
@@ -56,22 +56,21 @@ public class GetCitiesLogic implements ActionListener {
         }
     }
     //Ejecuta la ventana principal si se tiene mas de 3 cuidades registradas
-    public void saveCities() {
+    private void saveCities() {
         if (arrayCities.size()>2){
             getCitiesUi.dispose();
-            UIMain uiMain = new UIMain();
+            UIMainLogic uiMainLogic = new UIMainLogic(new UIMain(),arrayCities);
         }else{
             JOptionPane.showMessageDialog(null,"Agrega minimo 3 cuidades");
         }
     }
     //Se lee el archivo desde el boton
-    public void readFile(){
+    private void readFile(){
         //Se limpia la tabla y el arrayCities
         arrayCities.clear();
         while (getCitiesUi.modelCity.getRowCount() > 0) {
             getCitiesUi.modelCity.removeRow(0);
         }
-
         //Se guardan los datos en arrayCities
         ReadFileTxt readFileTxt = new ReadFileTxt();
         arrayCities = readFileTxt.readFile();
