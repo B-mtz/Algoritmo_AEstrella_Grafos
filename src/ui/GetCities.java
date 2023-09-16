@@ -43,7 +43,8 @@ public class GetCities extends JFrame{
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    public void componentsPanelNorth() {
+    //Creación de componentes Top
+    private void componentsPanelNorth() {
         panelNorth.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel lbTitle = new JLabel("Ingresa las cuidades a evaluar");
         lbTitle.setFont(font1);
@@ -54,7 +55,8 @@ public class GetCities extends JFrame{
         panelNorth.add(lbTitle,BorderLayout.CENTER);
         panelNorth.add(btnReadFile, BorderLayout.WEST);
     }
-    public void componentsPanelCenter(){
+    //Creación de componentes centrales
+    private void componentsPanelCenter(){
         panelCenter.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         tableCity = new JTable();
         modelCity = new DefaultTableModel();
@@ -71,7 +73,8 @@ public class GetCities extends JFrame{
         JScrollPane scrollBarCities = new JScrollPane(tableCity);
         panelCenter.add(scrollBarCities);
     }
-    public void componentsPanelSouth(){
+    //Creación de componentes Bottom
+    private void componentsPanelSouth(){
         panelSuth.setBorder(BorderFactory.createEmptyBorder(20,20,30,20));
         JPanel panelLabelTxt = new JPanel( new BorderLayout());
         //Labels
