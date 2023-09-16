@@ -1,17 +1,18 @@
 package test;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
-import logic.GetCitiesLogic;
-import logic.ReadTxt;
-import ui.GetCities;
-import ui.Ui_Main;
+import logic.HaversineFormula;
+import logic.UIMainLogic;
+import ui.UIMain;
 
 public class TestConsole {
     public static void main(String[] args) {
         FlatLightLaf.setup();
         //GetCitiesLogic getCitiesLogic = new GetCitiesLogic(new GetCities());
-        Ui_Main connections = new Ui_Main();
+        UIMainLogic uiMainLogic = new UIMainLogic(new UIMain());
+        HaversineFormula haversineFormula = new HaversineFormula();
 
+        double distance = haversineFormula.calculateDistance(17.06784, -96.72686, 16.33395, -96.59144);
+        System.out.println(distance);
     }
 }

@@ -2,7 +2,7 @@ package logic;
 
 import entities.City;
 import ui.GetCities;
-import ui.Ui_Main;
+import ui.UIMain;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -59,7 +59,7 @@ public class GetCitiesLogic implements ActionListener {
     public void saveCities() {
         if (arrayCities.size()>2){
             getCitiesUi.dispose();
-            Ui_Main uiMain = new Ui_Main();
+            UIMain uiMain = new UIMain();
         }else{
             JOptionPane.showMessageDialog(null,"Agrega minimo 3 cuidades");
         }
@@ -73,8 +73,8 @@ public class GetCitiesLogic implements ActionListener {
         }
 
         //Se guardan los datos en arrayCities
-        ReadTxt readTxt = new ReadTxt();
-        arrayCities = readTxt.readFile();
+        ReadFileTxt readFileTxt = new ReadFileTxt();
+        arrayCities = readFileTxt.readFile();
         //se agregan los datos a la tabla
         for (City city : arrayCities){
             String  data[] = {city.getName(),String.valueOf(city.getLatitude()),String.valueOf(city.getLongitude())};

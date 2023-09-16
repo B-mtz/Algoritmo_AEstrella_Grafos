@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ReadTxt {
+public class ReadFileTxt {
     private JFileChooser fileChooser;
     private File file;
     private ArrayList<City> arrayCities = new ArrayList<>();

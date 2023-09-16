@@ -1,11 +1,9 @@
 package ui;
 
-import com.formdev.flatlaf.ui.FlatRoundBorder;
-
 import javax.swing.*;
 import java.awt.*;
 
-public class Ui_Main extends JFrame {
+public class UIMain extends JFrame {
     private JPanel contentPane = new JPanel(new BorderLayout());
     private Font font = new Font("Sans",Font.BOLD,16);
     private Font font2 = new Font("Sans",Font.PLAIN,14);
@@ -17,7 +15,7 @@ public class Ui_Main extends JFrame {
     private  Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252), color3 = new Color(231, 233, 253);
 
     private int rows,columns;
-    public Ui_Main(){
+    public UIMain(){
         super("Generar Conexiones y Ruta");
         this.setSize(1280, 720);
         this.setContentPane(contentPane);
