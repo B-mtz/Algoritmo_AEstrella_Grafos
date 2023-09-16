@@ -11,7 +11,7 @@ public class HaversineFormula {
         return calculate(radio);
     }
     //Formula : d = 2 * R * arcsin(√(hav(φ2 - φ1) + cos(φ1) * cos(φ2) * hav(λ2 - λ1)))
-    private double calculate(double radio) {
+    public double calculate(double radio) {
         // Calculamos los cambios de latitud y longitud
         double deltaLat = lat2 - lat1;
         double deltaLon = lon2 - lon1;
