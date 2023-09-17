@@ -13,9 +13,9 @@ public class UIMain extends JFrame {
     private Font font = new Font("Sans",Font.BOLD,16);
     private Font font2 = new Font("Sans",Font.PLAIN,14);
     private Font font3 = new Font("Sans",Font.PLAIN,12);
-    private JPanel panelNorth, panelSuth, panelLeft, panelRight,panelCenter;
+    private JPanel panelNorth, panelSuth, panelLeft, panelRight;
     public DrawingPanel drawingPanel;
-
+    public JPanel panelCenter;
     private JTable tableCity;
     public DefaultTableModel modelTableCity;
     public JComboBox<String> comboBoxOr, comboBoxDes, comboBoxOr2, comboBoxDes2;
@@ -65,7 +65,7 @@ public class UIMain extends JFrame {
     //Componentes del panel Central
     public void componentsPanelCenter(){
         panelCenter.setBorder(BorderFactory.createLineBorder(color2,2,true));
-        panelCenter.setBackground(Color.red);
+        panelCenter.setBackground(color1);
         drawingPanel = new DrawingPanel();
         panelCenter.add(drawingPanel);
 

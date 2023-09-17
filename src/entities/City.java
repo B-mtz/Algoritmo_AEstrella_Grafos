@@ -36,6 +36,9 @@ public class City {
     public void addCityConexion(City city){
         arrayCityConexions.add(city);
     }
+    public void removeCityConexion(City city){
+        arrayCityConexions.remove(city);
+    }
     public String getName() {
         return name;
     }

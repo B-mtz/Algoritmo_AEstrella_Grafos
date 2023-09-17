@@ -13,6 +13,7 @@ public class UIMainLogic implements ActionListener {
     private ArrayList<City> arrayCities,arrayDrawCities, arrayDRawConexion;
     private  double LATITUDEMIN = 15.5, LATITUDEMAX= 17.6, LONGITUDEMIN=96, LONGITUDEMAX=98.1, PANELW =630, PANELH=900;
 
+    //Se inicializan la interfaz, las variables y se le agregan eventos a los botones
     public UIMainLogic(UIMain uiMain, ArrayList<City> arrayCities) {
         this.uiMain = uiMain;
         this.arrayCities = arrayCities;
@@ -44,7 +45,7 @@ public class UIMainLogic implements ActionListener {
             aux++;
         }
     }
-    // se añade una nueva conexion
+    // se añade una nueva conexion: se dibujan las cuidades y la conexion entre ellas
     private void addConexion(){
         // se validan las cuidades seleccionadas
         if (validateSelection()){
@@ -69,13 +70,44 @@ public class UIMainLogic implements ActionListener {
                 arrayCities.get(indexOrigin).addCityConexion(destination);
                 arrayCities.get(indexDestination).addCityConexion(origin);
                 //se dibujan las cuidades y la conexión si esta no existe
-                validateCityDrawing(origin,indexOrigin,destination,indexDestination);
+                validateAddCityDrawing(origin,indexOrigin,destination,indexDestination);
                 System.out.println("Conexion Agregada: "+origin.getName()+" ---> "+destination.getName());
+            }else{
+                JOptionPane.showMessageDialog(null,"Ya existe una conexion entre estas cuidades");
             }
         }
     }
+    //Se elimina una conexion: borra las cuidades y la conexion entre ellos
     private void deleteConexion(){
-
+        // se validan las cuidades seleccionadas
+        if (validateSelection()){
+            // Se busca la cuidad origen y la cuida destino seleccionado
+            City origin = null, destination = null;
+            int aux =0,indexOrigin=0,indexDestination =0;
+            //Recorre el array de cuidades y guarda la cuidad origen y destino, incluyendo el index del origen
+            for (City city: arrayCities){
+                if (city.getName().equalsIgnoreCase(uiMain.comboBoxOr.getSelectedItem().toString())){
+                    origin = city;
+                    indexOrigin = aux;
+                }
+                if (city.getName().equalsIgnoreCase(uiMain.comboBoxDes.getSelectedItem().toString())){
+                    destination = city;
+                    indexDestination = aux;
+                }
+                aux ++;
+            }
+            //Valida que haya una conexion entre estas dos cuidades
+            if (!validateDuplicateConnections(origin,destination)){
+                // se elimina la cuidad destino al ArrayCityConexions de la cuidad origen y viceversa
+                arrayCities.get(indexOrigin).removeCityConexion(destination);
+                arrayCities.get(indexDestination).removeCityConexion(origin);
+                //se elimina las cuidades y la conexión si esta existe
+                validateDeleteCityDrawing(origin,indexOrigin,destination,indexDestination);
+                System.out.println("Conexion eliminada: "+origin.getName()+" ---> "+destination.getName());
+            }else {
+                JOptionPane.showMessageDialog(null,"No existe una conexion entre estas cuidades");
+            }
+        }
     }
     private void resetRoute(){
 
@@ -90,7 +122,8 @@ public class UIMainLogic implements ActionListener {
             }
         }
     }
-    private void validateCityDrawing(City origin,int indexOrigin, City destination, int indexDestination){
+    //Valida que no se haya dibujado las cuidades y conexion para dibujarlos
+    private void validateAddCityDrawing(City origin, int indexOrigin, City destination, int indexDestination){
         //Recupera x y y de cada cuidad y verifica que sean distintas a 0, si es asi los dibuja
         if (origin.getX() ==0 && origin.getY() == 0){
             scaleCoordinates(origin);
@@ -101,7 +134,23 @@ public class UIMainLogic implements ActionListener {
             scaleCoordinates(destination);
             uiMain.drawingPanel.addDrawCity(destination,indexDestination);
         }
-        uiMain.drawingPanel.drawConexion(origin,destination);
+        uiMain.drawingPanel.addConexion(origin,destination);
+    }
+    //Valida que la cuidad solo tenga una conexion para borrarla, si existe mas de una conexion no lo borra
+    private void validateDeleteCityDrawing(City origin, int indexOrigin, City destination, int indexDestination){
+        //Verifica si ya no hay mas conexiones si no existen mas elimina la cuidad
+        if (origin.getArrayCitiesConexion().size() == 0){
+            uiMain.drawingPanel.deleteDrawCity(origin,indexOrigin);
+            origin.setX(0);
+            origin.setY(0);
+        }
+        if (destination.getArrayCitiesConexion().size() == 0){
+            uiMain.drawingPanel.deleteDrawCity(destination,indexDestination);
+            destination.setX(0);
+            destination.setY(0);
+        }
+        //Se elimina la conexión
+        uiMain.drawingPanel.deleteConexion(origin,destination);
     }
     //Escala las coordenadas
     private void scaleCoordinates(City city){
@@ -117,7 +166,7 @@ public class UIMainLogic implements ActionListener {
         city.setY(y);
     }
 
-
+    //Calcula la distancia entre las cuidades y el destino
     private void calculateHeuristic(){
 
     }
@@ -148,21 +197,21 @@ public class UIMainLogic implements ActionListener {
             for (City city : destination.getArrayCitiesConexion()){
                 if (origin.getName().equalsIgnoreCase(city.getName())){
                     flag = false;
-                    JOptionPane.showMessageDialog(null,"Ya existe una conexion entre estas cuidades");
                     break;
                 }
             }
         }
         return  flag;
     }
-
-
+    //Acciones de botones
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(uiMain.btnAdd)){
             addConexion();
+            uiMain.panelCenter.repaint();
         }else if (e.getSource().equals(uiMain.btnDelete)){
             deleteConexion();
+            uiMain.panelCenter.repaint();
         }else if (e.getSource().equals(uiMain.btnReset)){
             resetRoute();
         }else if (e.getSource().equals(uiMain.btnGenerate)){
