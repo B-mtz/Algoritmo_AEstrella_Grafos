@@ -44,16 +44,17 @@ public class ReadFileTxt {
     private void readLine(BufferedReader br) throws IOException {
         // Leemos cada renglón del archivo
         String line;
+        try {
         while ((line = br.readLine()) != null) {
             // separamos el renglon por _
             String[] attributes = line.split("_");
-            try {
-                City city = new City(attributes[0],Double.parseDouble(attributes[1]),Double.parseDouble(attributes[2]));
-                arrayCities.add(city);
-            }catch (Exception exception){
-                JOptionPane.showMessageDialog(null,"No se pudo leer el archivo correctamente\n" +
-                        "\nRevisa que el formato por linea sea:\nCiudad_Longitud_Latitud");
-            }
+            City city = new City(attributes[0],Double.parseDouble(attributes[1]),Double.parseDouble(attributes[2]));
+            arrayCities.add(city);
+        }
+        System.out.println("CIUDADES CARGADAS CORRECTAMENTE");
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null,"No se pudo leer el archivo correctamente\n" +
+                "\nRevisa que el formato por linea sea:\nCiudad_Longitud_Latitud");
         }
     }
 }

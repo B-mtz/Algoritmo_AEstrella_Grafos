@@ -1,6 +1,11 @@
 package ui;
 
+import entities.DrawingPanel;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
 public class UIMain extends JFrame {
@@ -8,10 +13,13 @@ public class UIMain extends JFrame {
     private Font font = new Font("Sans",Font.BOLD,16);
     private Font font2 = new Font("Sans",Font.PLAIN,14);
     private Font font3 = new Font("Sans",Font.PLAIN,12);
-    private JPanel panelNorth, panelSuth,panelCenter, panelLeft, panelRight;
-    private JTable cities;
-    private JComboBox comboBoxOr, comboBoxDes, comboBoxOr2, comboBoxDes2;
-    private JButton btnDelete,btnAdd,btnGenerate,btnReset;
+    private JPanel panelNorth, panelSuth, panelLeft, panelRight,panelCenter;
+    public DrawingPanel drawingPanel;
+
+    private JTable tableCity;
+    public DefaultTableModel modelTableCity;
+    public JComboBox<String> comboBoxOr, comboBoxDes, comboBoxOr2, comboBoxDes2;
+    public JButton btnDelete,btnAdd,btnGenerate,btnReset;
     private  Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252), color3 = new Color(231, 233, 253);
 
     private int rows,columns;
@@ -22,7 +30,7 @@ public class UIMain extends JFrame {
 
         //content panels
         panelNorth = new JPanel(new FlowLayout());
-        panelCenter = new JPanel();
+        panelCenter = new JPanel(new BorderLayout());
         panelSuth = new JPanel();
         panelLeft = new JPanel(new BorderLayout());
         panelRight = new JPanel();
@@ -45,7 +53,7 @@ public class UIMain extends JFrame {
         contentPane.add(panelLeft, BorderLayout.WEST);
         contentPane.add(panelRight,BorderLayout.EAST);
 
-        this.setResizable(false);
+        this.setResizable(true);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -56,9 +64,11 @@ public class UIMain extends JFrame {
     }
     //Componentes del panel Central
     public void componentsPanelCenter(){
-        panelCenter.setBackground(color3);
         panelCenter.setBorder(BorderFactory.createLineBorder(color2,2,true));
-        panelCenter.add(new JLabel("Hola"));
+        panelCenter.setBackground(Color.red);
+        drawingPanel = new DrawingPanel();
+        panelCenter.add(drawingPanel);
+
     }
     //Componentes del panel Sur
     public void componentsPanelSouth(){
@@ -66,9 +76,11 @@ public class UIMain extends JFrame {
     }
     //Componentes del panel izquierdo
     public void componentsPanelLeft(){
-        panelLeft.setBorder(BorderFactory.createEmptyBorder(50,20,20,20));
+        panelLeft.setBorder(BorderFactory.createEmptyBorder(10,20,20,20));
         JPanel panelLeftNorth = new JPanel(new BorderLayout());
+        panelLeftNorth.setPreferredSize(new Dimension(250,220));
         JPanel panelLeftSouth = new JPanel(new BorderLayout());
+        panelLeftSouth.setPreferredSize(new Dimension(250,220));
         GridLayout gridLayout = new GridLayout();
         gridLayout.setHgap(10);
 
@@ -103,12 +115,12 @@ public class UIMain extends JFrame {
         panelLeftNorthBtns.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
         btnDelete = new JButton("Eliminar");
         btnDelete.setFont(font);
-        btnDelete.setBackground(color1);
+        btnDelete.setBackground(new Color(247, 39, 105));
         btnDelete.setForeground(Color.WHITE);
         panelLeftNorthBtns.add(btnDelete);
         btnAdd = new JButton("Añadir");
         btnAdd.setFont(font);
-        btnAdd.setBackground(color1);
+        btnAdd.setBackground(new Color(129, 201, 38));
         btnAdd.setForeground(Color.WHITE);
         panelLeftNorthBtns.add(btnAdd);
         panelLeftNorthContent.add(panelLeftNorthContetnLabels,BorderLayout.NORTH);
@@ -131,10 +143,10 @@ public class UIMain extends JFrame {
         //### panelLeftsouthContetnLabels
         JPanel panelLeftsouthContetnLabels = new JPanel(gridLayout);
         panelLeftsouthContetnLabels.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
-        JLabel lbOrigin2 = new JLabel("Origen");
+        JLabel lbOrigin2 = new JLabel("Inicio");
         lbOrigin2.setHorizontalAlignment(0);
         lbOrigin2.setFont(font2);
-        JLabel lbDestination2 = new JLabel("Destino");
+        JLabel lbDestination2 = new JLabel("Fin");
         lbDestination2.setHorizontalAlignment(0);
         lbDestination2.setFont(font2);
         panelLeftsouthContetnLabels.add(lbOrigin2);
@@ -147,31 +159,54 @@ public class UIMain extends JFrame {
         panelLeftSouthContentJCombo.add(comboBoxDes2);
         //### panelLeftSouthBtns
         JPanel panelLeftSouthBtns = new JPanel(new FlowLayout());
-        panelLeftSouthBtns.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
+        panelLeftSouthBtns.setBorder(BorderFactory.createEmptyBorder(20,0,30,0));
         btnReset= new JButton("Reiniciar");
         btnReset.setFont(font);
-        btnReset.setBackground(color1);
+        btnReset.setBackground(new Color(247, 39, 105));
         btnReset.setForeground(Color.WHITE);
         panelLeftSouthBtns.add(btnReset);
         btnGenerate = new JButton("Generar");
         btnGenerate.setFont(font);
-        btnGenerate.setBackground(color1);
+        btnGenerate.setBackground(new Color(64, 190, 246));
         btnGenerate.setForeground(Color.WHITE);
         panelLeftSouthBtns.add(btnGenerate);
         PanelLeftSouthContent.add(panelLeftsouthContetnLabels,BorderLayout.NORTH);
         PanelLeftSouthContent.add(panelLeftSouthContentJCombo,BorderLayout.CENTER);
         PanelLeftSouthContent.add(panelLeftSouthBtns, BorderLayout.SOUTH);
 
-        panelLeftSouth.setBorder(BorderFactory.createEmptyBorder(0,0,150,0));
+        panelLeftSouth.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
         panelLeftSouth.add(panelLeftSouthTitle,BorderLayout.NORTH);
         panelLeftSouth.add(PanelLeftSouthContent, BorderLayout.CENTER);
 
+        //Panel Tabla
+        JPanel panelTable = new JPanel(new BorderLayout());
+        panelTable.setPreferredSize(new Dimension(250,50));
+        tableCity = new JTable();
+        modelTableCity = new DefaultTableModel();
+        String[] titles = {"ID", "Nombre"};
+        modelTableCity.setColumnIdentifiers(titles);
+        //tableCity.getTableHeader().setBackground(new Color(105, 111, 252));
+        tableCity.getTableHeader().setForeground(color1);
+        tableCity.getTableHeader().setFont(font2);
+        tableCity.setSelectionBackground(color2);
+        tableCity.setSelectionForeground(color1);
+        tableCity.setRowHeight(20);
+        tableCity.setFont(font2);
+        tableCity.setModel(modelTableCity);
+        JScrollPane scrollBarCities = new JScrollPane(tableCity);
+        panelTable.add(scrollBarCities);
+        TableColumnModel columnModel = tableCity.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(10);
+        columnModel.getColumn(1).setPreferredWidth(50);
+
         panelLeft.add(panelLeftNorth,BorderLayout.NORTH);
+        panelLeft.add(panelTable,BorderLayout.CENTER);
         panelLeft.add(panelLeftSouth,BorderLayout.SOUTH);
 
     }
     //Componentes del panel derecho
     public void componentsPanelRight(){
-        panelRight.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        panelRight.setBorder(BorderFactory.createEmptyBorder(0,5,5,5));
+
     }
 }

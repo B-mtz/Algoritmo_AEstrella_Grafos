@@ -23,7 +23,7 @@ public class GetCities extends JFrame{
 
         //content panels
         panelNorth = new JPanel(new BorderLayout());
-        panelCenter = new JPanel();
+        panelCenter = new JPanel( new BorderLayout());
         panelSuth = new JPanel(new BorderLayout());
 
         //North pane: components

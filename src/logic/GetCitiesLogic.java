@@ -59,7 +59,7 @@ public class GetCitiesLogic implements ActionListener {
     public void saveCities() {
         if (arrayCities.size()>2){
             getCitiesUi.dispose();
-            UIMain uiMain = new UIMain();
+            UIMainLogic uiMainLogic = new UIMainLogic(new UIMain(),arrayCities);
         }else{
             JOptionPane.showMessageDialog(null,"Agrega minimo 3 cuidades");
         }
