@@ -114,13 +114,8 @@ public class UIMainLogic implements ActionListener {
     }
 
     private void generateRoute(){
-        //Imprime las conexiones
-        for (City city :arrayCities){
-            System.out.println("Ciudad: "+city.getName());
-            for (City cityConexion : city.getArrayCitiesConexion()){
-                System.out.println(cityConexion.getName());
-            }
-        }
+
+        printCity();
     }
     //Valida que no se haya dibujado las cuidades y conexion para dibujarlos
     private void validateAddCityDrawing(City origin, int indexOrigin, City destination, int indexDestination){
@@ -166,11 +161,6 @@ public class UIMainLogic implements ActionListener {
         city.setY(y);
     }
 
-    //Calcula la distancia entre las cuidades y el destino
-    private void calculateHeuristic(){
-
-    }
-
     //Se validan que se seleccionaron ciudades y que no sean iguales
     private boolean validateSelection(){
         boolean flag = false;
@@ -203,6 +193,20 @@ public class UIMainLogic implements ActionListener {
         }
         return  flag;
     }
+    //Imprime las cuidades y sus conexiones
+    private void printCity(){
+        for (City city :arrayCities){
+            if (city.getArrayCitiesConexion().size() != 0) {
+                System.out.println("CUIDAD :: "+city.getName());
+                for (City cityConexion : city.getArrayCitiesConexion()){
+                    System.out.print(" ["+cityConexion.getName()+"]");
+                }
+                System.out.println(" ");
+            }
+        }
+    }
+
+
     //Acciones de botones
     @Override
     public void actionPerformed(ActionEvent e) {
