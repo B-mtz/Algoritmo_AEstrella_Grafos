@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class UIMainLogic implements ActionListener {
     private UIMain uiMain;
-    private ArrayList<City> arrayCities,arrayDrawCities, arrayDRawConexion;
+    private ArrayList<City> arrayCities;
+    private int countConexion= 0;
     private  double LATITUDEMIN = 15.5, LATITUDEMAX= 17.6, LONGITUDEMIN=96, LONGITUDEMAX=98.1, PANELW =630, PANELH=900;
 
     //Se inicializan la interfaz, las variables y se le agregan eventos a los botones
@@ -114,7 +115,37 @@ public class UIMainLogic implements ActionListener {
     }
 
     private void generateRoute(){
-
+        boolean flag1 = false, flag2 = false;
+        // se validan las cuidades seleccionadas
+        if (validateSelection2()){
+            //Valida que existan conexiones
+            if (countConexion>1){
+                // Se busca la cuidad origen y la cuida destino seleccionado
+                City origin = null, destination = null;
+                //Recorre el array de cuidades y guarda la cuidad origen y destino, incluyendo el index del origen
+                for (City city: arrayCities){
+                    if (city.getName().equalsIgnoreCase(uiMain.comboBoxOr2.getSelectedItem().toString())){
+                        if (city.getX() != 0 && city.getY() != 0){
+                            origin = city;
+                            flag1 = true;
+                        }
+                    }
+                    if (city.getName().equalsIgnoreCase(uiMain.comboBoxDes2.getSelectedItem().toString())){
+                        if (city.getX() != 0 && city.getY() != 0){
+                            destination = city;
+                            flag2 = true;
+                        }
+                    }
+                }
+                if (flag1 && flag2){
+                    StarAlgorithm starAlgorithm = new StarAlgorithm(arrayCities,origin,destination);
+                }else{
+                    JOptionPane.showMessageDialog(null,"No se encuentra dibujada la cuidad seleccionada");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Necesitas Minimo 3 cuidades conectadas");
+            }
+        }
         printCity();
     }
     //Valida que no se haya dibujado las cuidades y conexion para dibujarlos
@@ -130,6 +161,7 @@ public class UIMainLogic implements ActionListener {
             uiMain.drawingPanel.addDrawCity(destination,indexDestination);
         }
         uiMain.drawingPanel.addConexion(origin,destination);
+        countConexion++;
     }
     //Valida que la cuidad solo tenga una conexion para borrarla, si existe mas de una conexion no lo borra
     private void validateDeleteCityDrawing(City origin, int indexOrigin, City destination, int indexDestination){
@@ -146,6 +178,7 @@ public class UIMainLogic implements ActionListener {
         }
         //Se elimina la conexión
         uiMain.drawingPanel.deleteConexion(origin,destination);
+        countConexion--;
     }
     //Escala las coordenadas
     private void scaleCoordinates(City city){
@@ -161,7 +194,7 @@ public class UIMainLogic implements ActionListener {
         city.setY(y);
     }
 
-    //Se validan que se seleccionaron ciudades y que no sean iguales
+    //Se validan que se seleccionaron ciudades y que no sean iguales, para generar una conexion
     private boolean validateSelection(){
         boolean flag = false;
         if (!uiMain.comboBoxOr.getSelectedItem().toString().equalsIgnoreCase("Selecciona")){
@@ -176,6 +209,24 @@ public class UIMainLogic implements ActionListener {
             }
         }else {
             JOptionPane.showMessageDialog(null,"Selecciona una cuidad Origen");
+        }
+        return flag;
+    }
+    //Se validan que se seleccionaron ciudades y que no sean iguales, para generar una ruta
+    private boolean validateSelection2(){
+        boolean flag = false;
+        if (!uiMain.comboBoxOr2.getSelectedItem().toString().equalsIgnoreCase("Selecciona")){
+            if (!uiMain.comboBoxDes2.getSelectedItem().toString().equalsIgnoreCase("Selecciona")){
+                if (!uiMain.comboBoxOr2.getSelectedItem().toString().equalsIgnoreCase(uiMain.comboBoxDes2.getSelectedItem().toString())){
+                    flag = true;
+                }else{
+                    JOptionPane.showMessageDialog(null,"El inicio y el Fin no pueden ser iguales");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Selecciona una cuidad Fin");
+            }
+        }else {
+            JOptionPane.showMessageDialog(null,"Selecciona una cuidad de Inicio");
         }
         return flag;
     }
