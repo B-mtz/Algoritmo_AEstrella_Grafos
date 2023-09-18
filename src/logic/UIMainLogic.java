@@ -1,7 +1,9 @@
 package logic;
 
 import entities.City;
+import entities.Register;
 import ui.UIMain;
+import ui.ViewsLogs;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,7 +13,9 @@ import java.util.ArrayList;
 public class UIMainLogic implements ActionListener {
     private UIMain uiMain;
     private ArrayList<City> arrayCities;
+    private ArrayList<City> cityRoute;
     private int countConexion= 0;
+    private StarAlgorithm starAlgorithm;
     private  double LATITUDEMIN = 15.5, LATITUDEMAX= 17.6, LONGITUDEMIN=96, LONGITUDEMAX=98.1, PANELW =630, PANELH=900;
 
     //Se inicializan la interfaz, las variables y se le agregan eventos a los botones
@@ -21,7 +25,7 @@ public class UIMainLogic implements ActionListener {
         uiMain.btnAdd.addActionListener(this);
         uiMain.btnDelete.addActionListener(this);
         uiMain.btnGenerate.addActionListener(this);
-        uiMain.btnReset.addActionListener(this);
+        uiMain.btnViewTables.addActionListener(this);
         fillContent();
     }
 
@@ -110,8 +114,31 @@ public class UIMainLogic implements ActionListener {
             }
         }
     }
-    private void resetRoute(){
-
+    private void viewRegister(){
+        try {
+            ViewsLogs viewsLogs = new ViewsLogs();
+            String[] data  = new String[5];
+            ArrayList<Register> arrayOpenSet = starAlgorithm.getArrayOpenSetHistory();
+            ArrayList<Register> arrayOpenSetHistory = starAlgorithm.getArrayClosedSet();
+            for (Register register : arrayOpenSet){
+                data[0] = register.getCity().getName();
+                data[1] = String.valueOf(register.getCost());
+                data[2] = String.valueOf(register.getHeuristic());
+                data[3] = String.valueOf(register.getTotal());
+                data[4] = register.getOrigin().getName();
+                viewsLogs.modelOpenSet.addRow(data);
+            }
+            for (Register register : arrayOpenSetHistory){
+                data[0] = register.getCity().getName();
+                data[1] = String.valueOf(register.getCost());
+                data[2] = String.valueOf(register.getHeuristic());
+                data[3] = String.valueOf(register.getTotal());
+                data[4] = register.getOrigin().getName();
+                viewsLogs.modelClosedSet.addRow(data);
+            }
+        }catch (Exception exception){
+            JOptionPane.showMessageDialog(null,"Aun no existen registros");
+        }
     }
 
     private void generateRoute(){
@@ -138,7 +165,19 @@ public class UIMainLogic implements ActionListener {
                     }
                 }
                 if (flag1 && flag2){
-                    StarAlgorithm starAlgorithm = new StarAlgorithm(arrayCities,origin,destination);
+                    //Se ejecuta el algoritmo y se recupera la ruta
+                    starAlgorithm = new StarAlgorithm(arrayCities,origin,destination);
+                    cityRoute = starAlgorithm.generateRoute();
+                    //Se limpia la ruta generada cada vez
+                    uiMain.drawingPanel.resetRoute();
+                    //Se manda a dibujar la ruta
+                    for (City city : cityRoute){
+                        uiMain.drawingPanel.addDrawCityRoute(city);
+                    }
+                    for (int i = 1; i< cityRoute.size(); i++){
+                        uiMain.drawingPanel.addConexionRoute(cityRoute.get(i-1),cityRoute.get(i));
+                    }
+                    uiMain.drawingPanel.repaint();
                 }else{
                     JOptionPane.showMessageDialog(null,"No se encuentra dibujada la cuidad seleccionada");
                 }
@@ -146,7 +185,6 @@ public class UIMainLogic implements ActionListener {
                 JOptionPane.showMessageDialog(null,"Necesitas Minimo 3 cuidades conectadas");
             }
         }
-        printCity();
     }
     //Valida que no se haya dibujado las cuidades y conexion para dibujarlos
     private void validateAddCityDrawing(City origin, int indexOrigin, City destination, int indexDestination){
@@ -267,8 +305,8 @@ public class UIMainLogic implements ActionListener {
         }else if (e.getSource().equals(uiMain.btnDelete)){
             deleteConexion();
             uiMain.panelCenter.repaint();
-        }else if (e.getSource().equals(uiMain.btnReset)){
-            resetRoute();
+        }else if (e.getSource().equals(uiMain.btnViewTables)){
+            viewRegister();
         }else if (e.getSource().equals(uiMain.btnGenerate)){
             generateRoute();
         }

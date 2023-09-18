@@ -4,7 +4,6 @@ import entities.DrawingPanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
@@ -19,7 +18,7 @@ public class UIMain extends JFrame {
     private JTable tableCity;
     public DefaultTableModel modelTableCity;
     public JComboBox<String> comboBoxOr, comboBoxDes, comboBoxOr2, comboBoxDes2;
-    public JButton btnDelete,btnAdd,btnGenerate,btnReset;
+    public JButton btnDelete,btnAdd,btnGenerate, btnViewTables;
     private  Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252), color3 = new Color(231, 233, 253);
 
     private int rows,columns;
@@ -160,11 +159,11 @@ public class UIMain extends JFrame {
         //### panelLeftSouthBtns
         JPanel panelLeftSouthBtns = new JPanel(new FlowLayout());
         panelLeftSouthBtns.setBorder(BorderFactory.createEmptyBorder(20,0,30,0));
-        btnReset= new JButton("Reiniciar");
-        btnReset.setFont(font);
-        btnReset.setBackground(new Color(247, 39, 105));
-        btnReset.setForeground(Color.WHITE);
-        panelLeftSouthBtns.add(btnReset);
+        btnViewTables = new JButton("Ver Registros");
+        btnViewTables.setFont(font);
+        btnViewTables.setBackground(new Color(134, 144, 250));
+        btnViewTables.setForeground(Color.WHITE);
+        panelLeftSouthBtns.add(btnViewTables);
         btnGenerate = new JButton("Generar");
         btnGenerate.setFont(font);
         btnGenerate.setBackground(new Color(64, 190, 246));

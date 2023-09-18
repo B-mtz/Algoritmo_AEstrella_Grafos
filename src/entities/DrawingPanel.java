@@ -8,8 +8,9 @@ import java.util.ArrayList;
 public class DrawingPanel extends JPanel {
     private Image image;
     private Graphics2D graphics2D;
-    private ArrayList<CityDrawing> arrayCityDrawing;
-    private ArrayList<ConnectionDrawing> arrayConnectionDrawing;
+    private ArrayList<CityDrawing> arrayCityDrawing, arrayCityRoute;
+    private ArrayList<ConnectionDrawing> arrayConnectionDrawing, getArrayConnectionRoute;
+    private Color  colorConexionNormal = new Color(81, 83, 255), colorConexionRoute = new Color(254, 174, 19);
     private Font fontNumber = new Font("Cascadia code",Font.BOLD,14);
     public DrawingPanel() {
         // Inicializa la imagen como un BufferedImage
@@ -17,16 +18,28 @@ public class DrawingPanel extends JPanel {
         graphics2D = (Graphics2D) image.getGraphics();
         //Inicializa los arreglos para guardar los objetos a dibujar
         arrayCityDrawing = new ArrayList<>();
+        arrayCityRoute = new ArrayList<>();
         arrayConnectionDrawing = new ArrayList<>();
+        getArrayConnectionRoute = new ArrayList<>();
         this.setBackground(new Color(231, 233, 253));
     }
     //Dibuja una ciudad creando un objeto CityDrawing
     public void addDrawCity(City origin, int index) {
         arrayCityDrawing.add(new CityDrawing(origin,index));
     }
+    public void addDrawCityRoute(City city){
+        arrayCityRoute.add( new CityDrawing(city,0));
+    }
     //Crea un nuevo objeto ConnectionDrawing y dibuja la conexion
     public void addConexion(City origin, City destine) {
         arrayConnectionDrawing.add(new ConnectionDrawing(origin, destine));
+    }
+    public  void addConexionRoute(City origin,City destine){
+        getArrayConnectionRoute.add(new ConnectionDrawing(origin, destine));
+    }
+    public void resetRoute(){
+        arrayCityRoute.clear();
+        getArrayConnectionRoute.clear();
     }
     //Busca la cuidad dentro del array para eliminarlo
     public void deleteDrawCity(City origin, int index) {
@@ -86,9 +99,25 @@ public class DrawingPanel extends JPanel {
             graphics2D.drawString(String.valueOf(index+1),origin.getX()+2,origin.getY()+14);
         }
     }
+    //Metodos que pintan el inicio, fin y contenido de la ruta
+    private void paintCityStart(City origin){
+        graphics2D.setColor(new Color(247, 39, 105));
+        graphics2D.setStroke(new BasicStroke(2));
+        graphics2D.drawOval(origin.getX(),origin.getY(),20,20);
+    }
+    private void paintCityEnd(City origin){
+        graphics2D.setColor(new Color(129, 201, 38));
+        graphics2D.setStroke(new BasicStroke(2));
+        graphics2D.drawOval(origin.getX(),origin.getY(),20,20);
+    }
+    private void paintCityRoute(City origin){
+        graphics2D.setColor(new Color(254, 174, 19));
+        graphics2D.setStroke(new BasicStroke(2));
+        graphics2D.drawOval(origin.getX(),origin.getY(),20,20);
+    }
     //dibuja una conexion
-    private void  paintConexion(City origin, City destine){
-        graphics2D.setColor(new Color(81, 83, 255));
+    private void  paintConexion(City origin, City destine, Color color){
+        graphics2D.setColor(color);
         //Izquierda
         if (origin.getX() > destine.getX()) {
             //Arriba
@@ -119,10 +148,25 @@ public class DrawingPanel extends JPanel {
             paintCity(cityDrawing.getCity(),cityDrawing.getIndex());
         }
         // Dibuja las conexiones almacenadas en arrayConnectionDrawing
-        if (arrayConnectionDrawing.size()>0){
-            for (ConnectionDrawing connectionDrawing: arrayConnectionDrawing) {
-                paintConexion(connectionDrawing.origin, connectionDrawing.getDestine());
+        for (ConnectionDrawing connectionDrawing: arrayConnectionDrawing) {
+            paintConexion(connectionDrawing.getOrigin(), connectionDrawing.getDestine(),colorConexionNormal);
+        }
+
+        // Dibuja las ciudades almacenadas en arrayCityRoute
+        int aux = 0;
+        for (CityDrawing cityDrawing : arrayCityRoute){
+            if (aux== 0){
+                paintCityStart(cityDrawing.getCity());
+            } else if (aux+1 == arrayCityRoute.size()) {
+                paintCityEnd(cityDrawing.getCity());
+            }else{
+                paintCityRoute(cityDrawing.getCity());
             }
+            aux++;
+        }
+        // Dibuja las ciudades almacenadas en arrayConnectionRoute
+        for (ConnectionDrawing connectionDrawing: getArrayConnectionRoute) {
+            paintConexion(connectionDrawing.getOrigin(), connectionDrawing.getDestine(),colorConexionRoute);
         }
         // Dibuja la imagen en el panel
         g.drawImage(image, 0, 0, this);

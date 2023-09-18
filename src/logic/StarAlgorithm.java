@@ -10,8 +10,9 @@ import java.util.ArrayList;
 
 public class StarAlgorithm {
     private ArrayList<City> arrayCities;
-    private ArrayList<Register> arrayOpenSet,getArrayOpenSetHistory;
+    private ArrayList<Register> arrayOpenSet,arrayOpenSetHistory;
     private ArrayList<Register> arrayClosedSet;
+    private ArrayList<City> cityRoute;
     private City origin, destination;
     private boolean meta;
     public StarAlgorithm(ArrayList<City> arrayCities, City origin, City destination){
@@ -21,6 +22,8 @@ public class StarAlgorithm {
         this.meta = false;
         arrayOpenSet = new ArrayList<>();
         arrayClosedSet = new ArrayList<>();
+        arrayOpenSetHistory = new ArrayList<>();
+        cityRoute = new ArrayList<>();
         runAlgorithm();
     }
     public void runAlgorithm() {
@@ -41,10 +44,9 @@ public class StarAlgorithm {
                 evaluation(actual);
                 //Verifica si se llego a la meta
                 if (actual.getCity().getName().equalsIgnoreCase(destination.getName())) {
-                    JOptionPane.showMessageDialog(null, "Camino mas corto encontrado");
+                    //Ruta encontrada
                     arrayClosedSet.add(actual);
                     arrayOpenSet.remove(actual);
-                    //System.out.println("Actual"+actual.getOrigin().getName());
                     meta = true;
                 }else {//Si no se llego a la meta se agrega a cloSet
                     arrayClosedSet.add(actual);
@@ -55,7 +57,6 @@ public class StarAlgorithm {
                 meta = true;
             }
         }
-        printOpenClosedSet();
     }
     private void printOpenClosedSet(){
         System.out.println("OPENSET");
@@ -79,7 +80,6 @@ public class StarAlgorithm {
                 }
             }
         }
-
         return auxi;
     }
 
@@ -92,6 +92,7 @@ public class StarAlgorithm {
                 if (validateClosedSet(auxi)) {
                     if (validateOpenSet(auxi)) {
                         arrayOpenSet.add(auxi);
+                        arrayOpenSetHistory.add(auxi);
                     }
                 }
             }
@@ -131,5 +132,20 @@ public class StarAlgorithm {
             }
         }
         return flag;
+    }
+    public ArrayList<City> generateRoute(){
+        System.out.println("RUTA");
+        for (Register register : arrayClosedSet){
+            cityRoute.add(register.getCity());
+        }
+        return cityRoute;
+    }
+
+    public ArrayList<Register> getArrayClosedSet() {
+        return arrayClosedSet;
+    }
+
+    public ArrayList<Register> getArrayOpenSetHistory() {
+        return arrayOpenSetHistory;
     }
 }
