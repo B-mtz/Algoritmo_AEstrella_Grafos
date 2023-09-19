@@ -167,25 +167,13 @@ public class StarAlgorithm {
     }
     public ArrayList<City> generateRoute(){
         System.out.println("RUTA");
-        int aux= 0;
+        City aux = arrayClosedSet.get(0).getCity();
         for (Register register : arrayClosedSet){
-            //Guarda el origen
-            if (cityRoute.size() == 0){
-                cityRoute.add(register.getOrigin());
-                System.out.println(register.getOrigin().getName());
-            } else{
-                if (!register.getOrigin().getName().equalsIgnoreCase(cityRoute.get(cityRoute.size()-1).getName())){
-                    cityRoute.add(register.getOrigin());
-                    System.out.println(register.getOrigin().getName());
-                }
-            }
-            if (arrayClosedSet.size() == aux+1) {
+            if (register.getOrigin().equals(aux)){
+                aux = register.getCity();
                 cityRoute.add(register.getCity());
-                System.out.println(register.getCity().getName());
             }
-            aux++;
         }
-
         return cityRoute;
     }
 
