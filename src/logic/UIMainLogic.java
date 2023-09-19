@@ -27,6 +27,7 @@ public class UIMainLogic implements ActionListener {
         uiMain.btnGenerate.addActionListener(this);
         uiMain.btnViewTables.addActionListener(this);
         fillContent();
+        testConexion();
     }
 
     //Se rellenan los ComboBox y la tabla con los nombres de las cuidades
@@ -118,7 +119,7 @@ public class UIMainLogic implements ActionListener {
         try {
             ViewsLogs viewsLogs = new ViewsLogs();
             String[] data  = new String[5];
-            ArrayList<Register> arrayOpenSet = starAlgorithm.getArrayOpenSetHistory();
+            ArrayList<Register> arrayOpenSet = starAlgorithm.getArrayOpenSet();
             ArrayList<Register> arrayOpenSetHistory = starAlgorithm.getArrayClosedSet();
             for (Register register : arrayOpenSet){
                 data[0] = register.getCity().getName();
@@ -294,8 +295,50 @@ public class UIMainLogic implements ActionListener {
             }
         }
     }
-
-
+    public void testConexion(){
+        generateConexionTest("Oaxaca","Tlacolula");
+        generateConexionTest("Tlacolula","Santiago Matatlan");
+        generateConexionTest("Oaxaca","Nochixtlan");
+        generateConexionTest("Oaxaca","Ocotlan");
+        generateConexionTest("Ocotlan","Ejutla");
+        generateConexionTest("Ejutla","Miahuatlan");
+        generateConexionTest("Miahuatlan","Pochutla");
+        generateConexionTest("Pochutla","Huatulco");
+        generateConexionTest("Pochutla","Mazunte");
+        generateConexionTest("Mazunte","Puerto Escondido");
+        generateConexionTest("Puerto Escondido","Rio Grande");
+        generateConexionTest("Puerto Escondido","Juquila");
+        generateConexionTest("Juquila","Rio Grande");
+        generateConexionTest("Juquila","Santiago Jamiltepec");
+        generateConexionTest("Santiago Jamiltepec","Pinotepa Nacional");
+        generateConexionTest("Juquila","Zimatlan");
+        generateConexionTest("Oaxaca","Zimatlan");
+    }
+    private void generateConexionTest(String or, String dest){
+        City origin = null, destination = null;
+        int aux =0,indexOrigin=0,indexDestination =0;
+        //Recorre el array de cuidades y guarda la cuidad origen y dsestino, incluyendo el index del origen
+        for (City city: arrayCities){
+            if (city.getName().equalsIgnoreCase(or)){
+                origin = city;
+                indexOrigin = aux;
+            }
+            if (city.getName().equalsIgnoreCase(dest)){
+                destination = city;
+                indexDestination = aux;
+            }
+            aux ++;
+        }
+        //Valida que no haya una conexion entre estas dos cuidades
+        if (validateDuplicateConnections(origin,destination)){
+            // se agreega la cuidad destino al ArrayCityConexions de la cuidad origen y viceversa
+            arrayCities.get(indexOrigin).addCityConexion(destination);
+            arrayCities.get(indexDestination).addCityConexion(origin);
+            //se dibujan las cuidades y la conexión si esta no existe
+            validateAddCityDrawing(origin,indexOrigin,destination,indexDestination);
+            System.out.println("Conexion Agregada: "+origin.getName()+" ---> "+destination.getName());
+        }
+    }
     //Acciones de botones
     @Override
     public void actionPerformed(ActionEvent e) {

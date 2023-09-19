@@ -3,18 +3,15 @@ package entities;
 import logic.HaversineFormula;
 
 public class Register {
-    private City city, origin, destination;
+    private City city, origin;
     private double cost, heuristic,total;
-    private HaversineFormula formula;
 
-    public Register(City city,City origin,City destination) {
+    public Register(City city,City origin) {
         this.city = city;
         this.origin = origin;
-        this.destination = destination;
-        formula = new HaversineFormula();
-        this.cost = formula.calculateDistance(origin.getLatitude(),origin.getLongitude(),city.getLatitude(),city.getLongitude());
-        this.heuristic = formula.calculateDistance(city.getLatitude(),city.getLongitude(),destination.getLatitude(),destination.getLongitude());
-        this.total = cost+ heuristic;
+        this.cost = 0;
+        this.heuristic = 0;
+        this.total = 0;
     }
 
     public City getCity() {
