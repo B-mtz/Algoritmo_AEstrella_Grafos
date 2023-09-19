@@ -120,7 +120,7 @@ public class UIMainLogic implements ActionListener {
             ViewsLogs viewsLogs = new ViewsLogs();
             String[] data  = new String[5];
             ArrayList<Register> arrayOpenSet = starAlgorithm.getArrayOpenSet();
-            ArrayList<Register> arrayOpenSetHistory = starAlgorithm.getArrayClosedSet();
+            ArrayList<Register> arrayClosedSet = starAlgorithm.getArrayClosedSet();
             for (Register register : arrayOpenSet){
                 data[0] = register.getCity().getName();
                 data[1] = String.valueOf(register.getCost());
@@ -129,7 +129,7 @@ public class UIMainLogic implements ActionListener {
                 data[4] = register.getOrigin().getName();
                 viewsLogs.modelOpenSet.addRow(data);
             }
-            for (Register register : arrayOpenSetHistory){
+            for (Register register : arrayClosedSet){
                 data[0] = register.getCity().getName();
                 data[1] = String.valueOf(register.getCost());
                 data[2] = String.valueOf(register.getHeuristic());
@@ -137,8 +137,8 @@ public class UIMainLogic implements ActionListener {
                 data[4] = register.getOrigin().getName();
                 viewsLogs.modelClosedSet.addRow(data);
             }
+            viewsLogs.lbrecorrido.setText("Distancia recorrida : "+ arrayClosedSet.get(arrayClosedSet.size()-1).getTotal()+" km");
         }catch (Exception exception){
-            JOptionPane.showMessageDialog(null,"Aun no existen registros");
         }
     }
 

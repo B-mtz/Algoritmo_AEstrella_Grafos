@@ -34,27 +34,20 @@ public class StarAlgorithm {
         registerOrigin.setHeuristic(formula.calculateDistance(origin.getLatitude(),origin.getLongitude(),destination.getLatitude(),destination.getLongitude()));
         registerOrigin.setCost(0);
         registerOrigin.setTotal(registerOrigin.getCost()+registerOrigin.getHeuristic());
-        System.out.println("37: registerOrigen :" +registerOrigin.getCity().getName()+"--"+registerOrigin.getOrigin().getName());
         for (City city : registerOrigin.getCity().getArrayCitiesConexion()) {
-            System.out.println("39: For: City = "+city.getName());
             //Calcular la heuristica, el costo y el total.
             Register registerCity = new Register(city,registerOrigin.getCity());
             registerCity.setHeuristic(formula.calculateDistance(city.getLatitude(),city.getLongitude(),destination.getLatitude(),destination.getLongitude()));
             Double costAux = formula.calculateDistance(registerOrigin.getCity().getLatitude(),registerOrigin.getCity().getLongitude(),city.getLatitude(),city.getLongitude());
             registerCity.setCost(costAux+registerOrigin.getCost());
             registerCity.setTotal(registerCity.getCost()+registerCity.getHeuristic());
-            System.out.println("46: registerCity :" +registerCity.getCity().getName()+"--"+registerOrigin.getCity().getName());
             arrayOpenSet.add(registerCity);
-            System.out.println("48: arrayOpenSet.add :" +registerCity.getCity().getName()+"--"+registerOrigin.getCity().getName());
         }
         // una vez evaluado el origen se agrega a closSet
         arrayClosedSet.add(registerOrigin);
-        System.out.println("52: arrayClosedSet.add :" +registerOrigin.getCity().getName());
         // se evalua OpenSet
         while (!meta) {
-            System.out.println(" 55: Meta = "+meta);
             //Verifica que openSet no este vacio, si esta vacio indica que no se llego a la meta
-            System.out.println(" 57: if(openSet == vacio) = "+arrayOpenSet.isEmpty());
             if (!arrayOpenSet.isEmpty()) {
                 //Recupera el registro en openSet con menor costo
                 Register actual = getMinCost();
@@ -99,7 +92,6 @@ public class StarAlgorithm {
         return auxi;
     }
 
-    //Problema: se evalua el origen de donde viene ejemplo Oaxaca-->Tlacolula   Tlacolula-->SantiagoMatatlan y Tlacolula-->Oaxaca
     //El segundo ya no se deberia evaluar ya que es el origen
     public void evaluation(Register actual){
         //Valida que existan conexiones
@@ -172,8 +164,10 @@ public class StarAlgorithm {
             if (register.getOrigin().equals(aux)){
                 aux = register.getCity();
                 cityRoute.add(register.getCity());
+                System.out.print("["+register.getCity().getName()+"]");
             }
         }
+        System.out.println("");
         return cityRoute;
     }
 

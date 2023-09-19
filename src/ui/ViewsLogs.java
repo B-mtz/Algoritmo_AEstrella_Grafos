@@ -6,11 +6,12 @@ import java.awt.*;
 
 public class ViewsLogs extends JFrame{
     private JPanel contentPane = new JPanel(new BorderLayout());
-    private JPanel panelNorth, panelCenter;
+    private JPanel panelNorth, panelCenter, panelSuth;
     private Font font = new Font("Sans", Font.BOLD, 16);
     private Font font1 = new Font("Sans", Font.PLAIN, 16);
     private Font font2 = new Font("Sans", Font.PLAIN, 14);
     public JTable tableOpenSet, tableClosedSet;
+    public  JLabel lbrecorrido;
     public DefaultTableModel modelOpenSet, modelClosedSet;
     private Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252);
 
@@ -22,15 +23,19 @@ public class ViewsLogs extends JFrame{
         //content panels
         panelNorth = new JPanel(new FlowLayout());
         panelCenter = new JPanel(new GridLayout());
+        panelSuth = new JPanel(new FlowLayout());
 
         //North pane: components
         componentsPanelNorth();
         //Center pane: components
         componentsPanelCenter();
+        //Suths pane: components
+        componentPanelSouth();
 
         //Add content paneles : contentPane
         contentPane.add(panelNorth, BorderLayout.NORTH);
         contentPane.add(panelCenter, BorderLayout.CENTER);
+        contentPane.add(panelSuth, BorderLayout.SOUTH);
 
         this.setResizable(true);
         this.setLocationRelativeTo(null);
@@ -95,6 +100,13 @@ public class ViewsLogs extends JFrame{
 
         panelCenter.add(panelLeft,BorderLayout.WEST);
         panelCenter.add(panelRight, BorderLayout.EAST);
+    }
+    public void componentPanelSouth(){
+        lbrecorrido = new JLabel("Distancia recorrida :");
+        lbrecorrido.setFont(font);
+        lbrecorrido.setForeground(color1);
+        panelSuth.setBorder(BorderFactory.createEmptyBorder(10, 10, 50, 10));
+        panelSuth.add(lbrecorrido);
     }
 
 }
