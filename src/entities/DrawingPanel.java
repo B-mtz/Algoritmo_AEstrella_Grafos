@@ -101,12 +101,12 @@ public class DrawingPanel extends JPanel {
     }
     //Metodos que pintan el inicio, fin y contenido de la ruta
     private void paintCityStart(City origin){
-        graphics2D.setColor(new Color(247, 39, 105));
+        graphics2D.setColor(new Color(129, 201, 38));
         graphics2D.setStroke(new BasicStroke(2));
         graphics2D.drawOval(origin.getX(),origin.getY(),20,20);
     }
     private void paintCityEnd(City origin){
-        graphics2D.setColor(new Color(129, 201, 38));
+        graphics2D.setColor(new Color(247, 39, 105));
         graphics2D.setStroke(new BasicStroke(2));
         graphics2D.drawOval(origin.getX(),origin.getY(),20,20);
     }

@@ -158,7 +158,9 @@ public class StarAlgorithm {
         return flag;
     }
     public ArrayList<City> generateRoute(){
+
         System.out.println("RUTA");
+        /*
         City aux = arrayClosedSet.get(0).getCity();
         for (Register register : arrayClosedSet){
             if (register.getOrigin().equals(aux)){
@@ -167,6 +169,19 @@ public class StarAlgorithm {
                 System.out.print("["+register.getCity().getName()+"]");
             }
         }
+        System.out.println("");
+        */
+        City aux = arrayClosedSet.get(arrayClosedSet.size()-1).getCity();
+        for (int i = arrayClosedSet.size() - 1; i >= 0; i--) {
+            Register register = arrayClosedSet.get(i);
+            if (register.getCity().equals(aux)) {
+                cityRoute.add(register.getCity());
+                aux = register.getOrigin();
+                System.out.print("[" + register.getCity().getName()+ "]");
+            }
+        }
+        //cityRoute.add(arrayClosedSet.get(arrayClosedSet.size()-1).getOrigin());
+        //System.out.print("[" + arrayClosedSet.get(arrayClosedSet.size()-1).getOrigin().getName() + "]");
         System.out.println("");
         return cityRoute;
     }
