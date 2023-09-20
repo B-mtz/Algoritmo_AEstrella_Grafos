@@ -15,6 +15,7 @@ public class ViewsLogs extends JFrame{
     public DefaultTableModel modelOpenSet, modelClosedSet;
     private Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252);
 
+    //Constructor
     public ViewsLogs() {
         super("Logs");
         this.setSize(1000, 700);
@@ -101,6 +102,8 @@ public class ViewsLogs extends JFrame{
         panelCenter.add(panelLeft,BorderLayout.WEST);
         panelCenter.add(panelRight, BorderLayout.EAST);
     }
+
+    //Componenetes del panel Sur
     public void componentPanelSouth(){
         lbrecorrido = new JLabel("Distancia recorrida :");
         lbrecorrido.setFont(font);

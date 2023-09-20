@@ -12,6 +12,7 @@ public class DrawingPanel extends JPanel {
     private ArrayList<ConnectionDrawing> arrayConnectionDrawing, getArrayConnectionRoute;
     private Color  colorConexionNormal = new Color(81, 83, 255), colorConexionRoute = new Color(254, 174, 19);
     private Font fontNumber = new Font("Cascadia code",Font.BOLD,14);
+    //Constructor
     public DrawingPanel() {
         // Inicializa la imagen como un BufferedImage
         image = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_ARGB);
@@ -37,6 +38,7 @@ public class DrawingPanel extends JPanel {
     public  void addConexionRoute(City origin,City destine){
         getArrayConnectionRoute.add(new ConnectionDrawing(origin, destine));
     }
+    //Limpia la ruta generada cada vez que se elimina
     public void resetRoute(){
         arrayCityRoute.clear();
         getArrayConnectionRoute.clear();
@@ -99,7 +101,7 @@ public class DrawingPanel extends JPanel {
             graphics2D.drawString(String.valueOf(index+1),origin.getX()+2,origin.getY()+14);
         }
     }
-    //Metodos que pintan el inicio, fin y contenido de la ruta
+    //Metodos que pintan el inicio, fin y la ruta encontrada
     private void paintCityStart(City origin){
         graphics2D.setColor(new Color(129, 201, 38));
         graphics2D.setStroke(new BasicStroke(2));

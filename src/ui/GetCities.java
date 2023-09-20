@@ -16,6 +16,7 @@ public class GetCities extends JFrame{
     public JTextField txtName,txtLatitude,txtLongitude;
     private  Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252), color3 = new Color(231, 233, 253);
 
+    //Constructor
     public GetCities(){
         super("Ingresa los datos de las cuidades");
         this.setSize(500, 640);
@@ -51,6 +52,7 @@ public class GetCities extends JFrame{
         lbTitle.setForeground(color1);
         lbTitle.setHorizontalAlignment(0);
         btnReadFile = new JButton();
+        btnReadFile.setBorder(null);
         btnReadFile.setIcon(new ImageIcon("src/library/txt.png"));
         panelNorth.add(lbTitle,BorderLayout.CENTER);
         panelNorth.add(btnReadFile, BorderLayout.WEST);

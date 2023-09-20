@@ -18,10 +18,6 @@ public class Register {
         return city;
     }
 
-    public void setCity(City city) {
-        this.city = city;
-    }
-
     public City getOrigin() {
         return origin;
     }

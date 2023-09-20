@@ -27,7 +27,37 @@ public class UIMainLogic implements ActionListener {
         uiMain.btnGenerate.addActionListener(this);
         uiMain.btnViewTables.addActionListener(this);
         fillContent();
-        testConexion();
+        getLatLongMAxMin();
+    }
+
+    //busca el valor del minimo y maxivo de la latitud y longitud para hacer poder dibujar las cuidades y conexiones
+    public void getLatLongMAxMin(){
+        LATITUDEMIN = Math.abs(arrayCities.get(0).getLatitude());
+        LATITUDEMAX = Math.abs(arrayCities.get(0).getLatitude());
+        LONGITUDEMIN = Math.abs(arrayCities.get(0).getLongitude());
+        LONGITUDEMAX = Math.abs(arrayCities.get(0).getLongitude());
+        for(City city : arrayCities){
+            Double auxLat = Math.abs(city.getLatitude());
+            Double auxLong = Math.abs(city.getLongitude());
+            if (LATITUDEMIN > auxLat){
+                LATITUDEMIN = auxLat;
+            }
+            if (LATITUDEMAX < auxLat){
+                LATITUDEMAX = auxLat;
+            }
+            if (LONGITUDEMIN > auxLong){
+                LONGITUDEMIN = auxLong;
+            }
+            if (LONGITUDEMAX < auxLong){
+                LONGITUDEMAX = auxLong;
+            }
+        }
+        LATITUDEMAX = LATITUDEMAX + 0.1;
+        LATITUDEMIN = LATITUDEMIN - 0.1;
+        LONGITUDEMAX = LONGITUDEMAX + 0.1;
+        LONGITUDEMIN = LONGITUDEMIN - 0.1;
+        System.out.println("Latitude Max: "+LATITUDEMAX+"   Min: "+LATITUDEMIN);
+        System.out.println("Longiude Max: "+LONGITUDEMAX+"   Min: "+LONGITUDEMIN);
     }
 
     //Se rellenan los ComboBox y la tabla con los nombres de las cuidades
@@ -115,6 +145,7 @@ public class UIMainLogic implements ActionListener {
             }
         }
     }
+    //Muestra los registros de las tablas de openSet y closedSet
     private void viewRegister(){
         try {
             ViewsLogs viewsLogs = new ViewsLogs();
@@ -141,7 +172,7 @@ public class UIMainLogic implements ActionListener {
         }catch (Exception exception){
         }
     }
-
+    // Genera una nueva ruta entre cuidades
     private void generateRoute(){
         boolean flag1 = false, flag2 = false;
         // se validan las cuidades seleccionadas
@@ -293,50 +324,6 @@ public class UIMainLogic implements ActionListener {
                 }
                 System.out.println(" ");
             }
-        }
-    }
-    public void testConexion(){
-        generateConexionTest("Oaxaca","Tlacolula");
-        generateConexionTest("Tlacolula","Santiago Matatlan");
-        generateConexionTest("Oaxaca","Nochixtlan");
-        generateConexionTest("Oaxaca","Ocotlan");
-        generateConexionTest("Ocotlan","Ejutla");
-        generateConexionTest("Ejutla","Miahuatlan");
-        generateConexionTest("Miahuatlan","Pochutla");
-        generateConexionTest("Pochutla","Huatulco");
-        generateConexionTest("Pochutla","Mazunte");
-        generateConexionTest("Mazunte","Puerto Escondido");
-        generateConexionTest("Puerto Escondido","Rio Grande");
-        generateConexionTest("Puerto Escondido","Juquila");
-        generateConexionTest("Juquila","Rio Grande");
-        generateConexionTest("Juquila","Santiago Jamiltepec");
-        generateConexionTest("Santiago Jamiltepec","Pinotepa Nacional");
-        generateConexionTest("Juquila","Zimatlan");
-        generateConexionTest("Oaxaca","Zimatlan");
-    }
-    private void generateConexionTest(String or, String dest){
-        City origin = null, destination = null;
-        int aux =0,indexOrigin=0,indexDestination =0;
-        //Recorre el array de cuidades y guarda la cuidad origen y dsestino, incluyendo el index del origen
-        for (City city: arrayCities){
-            if (city.getName().equalsIgnoreCase(or)){
-                origin = city;
-                indexOrigin = aux;
-            }
-            if (city.getName().equalsIgnoreCase(dest)){
-                destination = city;
-                indexDestination = aux;
-            }
-            aux ++;
-        }
-        //Valida que no haya una conexion entre estas dos cuidades
-        if (validateDuplicateConnections(origin,destination)){
-            // se agreega la cuidad destino al ArrayCityConexions de la cuidad origen y viceversa
-            arrayCities.get(indexOrigin).addCityConexion(destination);
-            arrayCities.get(indexDestination).addCityConexion(origin);
-            //se dibujan las cuidades y la conexión si esta no existe
-            validateAddCityDrawing(origin,indexOrigin,destination,indexDestination);
-            System.out.println("Conexion Agregada: "+origin.getName()+" ---> "+destination.getName());
         }
     }
     //Acciones de botones

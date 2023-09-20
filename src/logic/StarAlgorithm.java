@@ -5,17 +5,18 @@ import entities.Register;
 
 import javax.swing.*;
 import java.util.ArrayList;
-// AL enviar el origen y destino validar que estos tengan conexiones por que si no tiene ninguna conexion no se puede
 
 
 public class StarAlgorithm {
     private ArrayList<City> arrayCities;
-    private ArrayList<Register> arrayOpenSet,arrayOpenSetHistory;
+    private ArrayList<Register> arrayOpenSet;
     private ArrayList<Register> arrayClosedSet;
     private ArrayList<City> cityRoute;
     private City origin, destination;
     private HaversineFormula formula;
     private boolean meta;
+
+    //Constructor
     public StarAlgorithm(ArrayList<City> arrayCities, City origin, City destination){
         this.arrayCities = arrayCities;
         this.origin = origin;
@@ -23,11 +24,12 @@ public class StarAlgorithm {
         this.meta = false;
         arrayOpenSet = new ArrayList<>();
         arrayClosedSet = new ArrayList<>();
-        arrayOpenSetHistory = new ArrayList<>();
         cityRoute = new ArrayList<>();
         formula = new HaversineFormula();
         runAlgorithm();
     }
+
+    //Ejecuta el algoritmo
     public void runAlgorithm() {
         // Se crea un registro origen y se evaluan sus conexiones
         Register registerOrigin = new Register(origin,origin);
@@ -43,6 +45,7 @@ public class StarAlgorithm {
             registerCity.setTotal(registerCity.getCost()+registerCity.getHeuristic());
             arrayOpenSet.add(registerCity);
         }
+
         // una vez evaluado el origen se agrega a closSet
         arrayClosedSet.add(registerOrigin);
         // se evalua OpenSet
@@ -69,6 +72,8 @@ public class StarAlgorithm {
             }
         }
     }
+
+    //Imprime openSet y el cLosedSet en consola( Se uso para pruebas )
     private void printOpenClosedSet(){
         System.out.println("OPENSET");
         for (Register register : arrayOpenSet){
@@ -82,6 +87,7 @@ public class StarAlgorithm {
         }
     }
 
+    //Obtiene el registro en openSet con menor costo
     public Register getMinCost(){
         Register auxi= arrayOpenSet.get(0);
             for (int i = 1; i<arrayOpenSet.size();i++){
@@ -92,7 +98,7 @@ public class StarAlgorithm {
         return auxi;
     }
 
-    //El segundo ya no se deberia evaluar ya que es el origen
+    //Se encarga de evaluar las conexiones que tiene la ciudad actual
     public void evaluation(Register actual){
         //Valida que existan conexiones
         if (actual.getCity().getArrayCitiesConexion().size() >1){
@@ -103,14 +109,10 @@ public class StarAlgorithm {
                 Double costAux = formula.calculateDistance(actual.getCity().getLatitude(),actual.getCity().getLongitude(),city.getLatitude(),city.getLongitude());
                 registerAux.setCost(costAux+actual.getCost());
                 registerAux.setTotal(registerAux.getCost()+ registerAux.getHeuristic());
-
-
+                //Verifica que la cuidad no se encuentre en openSet o en ClosedSet
                 if (validateOpenSet(registerAux)) {
                     if (validateClosedSet(registerAux)) {
-                        //System.out.println("Origen : "+actual.getCity().getName()+"--  Conexiones: "+registerAux.getCity().getName());
                         arrayOpenSet.add(registerAux);
-                       // System.out.println(registerAux.getCity().getName()+"---"+registerAux.getCost()+"---"+registerAux.getHeuristic()+"---"+registerAux.getTotal()+"---"+registerAux.getOrigin().getName());
-                        arrayOpenSetHistory.add(registerAux);
                     }
                 }
             }
@@ -157,20 +159,9 @@ public class StarAlgorithm {
         }
         return flag;
     }
+    //Genera la ruta a seguir y lo imprime en pantalla
     public ArrayList<City> generateRoute(){
-
         System.out.println("RUTA");
-        /*
-        City aux = arrayClosedSet.get(0).getCity();
-        for (Register register : arrayClosedSet){
-            if (register.getOrigin().equals(aux)){
-                aux = register.getCity();
-                cityRoute.add(register.getCity());
-                System.out.print("["+register.getCity().getName()+"]");
-            }
-        }
-        System.out.println("");
-        */
         City aux = arrayClosedSet.get(arrayClosedSet.size()-1).getCity();
         for (int i = arrayClosedSet.size() - 1; i >= 0; i--) {
             Register register = arrayClosedSet.get(i);
@@ -180,8 +171,6 @@ public class StarAlgorithm {
                 System.out.print("[" + register.getCity().getName()+ "]");
             }
         }
-        //cityRoute.add(arrayClosedSet.get(arrayClosedSet.size()-1).getOrigin());
-        //System.out.print("[" + arrayClosedSet.get(arrayClosedSet.size()-1).getOrigin().getName() + "]");
         System.out.println("");
         return cityRoute;
     }

@@ -6,12 +6,16 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class UIMain extends JFrame {
     private JPanel contentPane = new JPanel(new BorderLayout());
     private Font font = new Font("Sans",Font.BOLD,16);
     private Font font2 = new Font("Sans",Font.PLAIN,14);
-    private Font font3 = new Font("Sans",Font.PLAIN,12);
     private JPanel panelNorth, panelSuth, panelLeft, panelRight;
     public DrawingPanel drawingPanel;
     public JPanel panelCenter;
@@ -21,7 +25,7 @@ public class UIMain extends JFrame {
     public JButton btnDelete,btnAdd,btnGenerate, btnViewTables;
     private  Color color1 = new Color(81, 83, 255), color2 = new Color(207, 210, 252), color3 = new Color(231, 233, 253);
 
-    private int rows,columns;
+    //Constructor
     public UIMain(){
         super("Generar Conexiones y Ruta");
         this.setSize(1280, 720);
@@ -52,15 +56,17 @@ public class UIMain extends JFrame {
         contentPane.add(panelLeft, BorderLayout.WEST);
         contentPane.add(panelRight,BorderLayout.EAST);
 
-        this.setResizable(true);
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+
     //Componentes del panel Norte
     public void componentsPanelNorth(){
         panelNorth.setBorder(BorderFactory.createEmptyBorder(0,5,5,5));
     }
+
     //Componentes del panel Central
     public void componentsPanelCenter(){
         panelCenter.setBorder(BorderFactory.createLineBorder(color2,2,true));
@@ -69,13 +75,15 @@ public class UIMain extends JFrame {
         panelCenter.add(drawingPanel);
 
     }
+
     //Componentes del panel Sur
     public void componentsPanelSouth(){
         panelSuth.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
     }
+
     //Componentes del panel izquierdo
     public void componentsPanelLeft(){
-        panelLeft.setBorder(BorderFactory.createEmptyBorder(10,20,20,20));
+        panelLeft.setBorder(BorderFactory.createEmptyBorder(0,20,5,20));
         JPanel panelLeftNorth = new JPanel(new BorderLayout());
         panelLeftNorth.setPreferredSize(new Dimension(250,220));
         JPanel panelLeftSouth = new JPanel(new BorderLayout());
@@ -172,10 +180,38 @@ public class UIMain extends JFrame {
         PanelLeftSouthContent.add(panelLeftsouthContetnLabels,BorderLayout.NORTH);
         PanelLeftSouthContent.add(panelLeftSouthContentJCombo,BorderLayout.CENTER);
         PanelLeftSouthContent.add(panelLeftSouthBtns, BorderLayout.SOUTH);
+        //Se crea un label para el link
+        JLabel lbAutor = new JLabel("  Autor: https://github.com/B-mtz");
+        lbAutor.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lbAutor.setForeground(Color.gray);
+        // Agrega un MouseListener al JLabel para abrir el enlace cuando se hace clic
+        lbAutor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    // Abre el enlace en el navegador web predeterminado
+                    Desktop.getDesktop().browse(new URI("https://github.com/B-mtz"));
+                } catch (IOException | URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Cambia el color del texto cuando el ratón entra
+                lbAutor.setForeground(color1);
+            }
 
-        panelLeftSouth.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Restaura el color del texto cuando el ratón sale
+                lbAutor.setForeground(Color.gray);
+            }
+        });
+
+        panelLeftSouth.setBorder(BorderFactory.createEmptyBorder(20,0,4,0));
         panelLeftSouth.add(panelLeftSouthTitle,BorderLayout.NORTH);
         panelLeftSouth.add(PanelLeftSouthContent, BorderLayout.CENTER);
+        panelLeftSouth.add(lbAutor,BorderLayout.SOUTH);
 
         //Panel Tabla
         JPanel panelTable = new JPanel(new BorderLayout());

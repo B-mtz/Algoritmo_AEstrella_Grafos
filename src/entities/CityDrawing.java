@@ -3,6 +3,7 @@ package entities;
 public class CityDrawing {
     private City city;
     private int index;
+
     public CityDrawing(City city,int index){
         this.city = city;
         this.index = index;
@@ -12,15 +13,7 @@ public class CityDrawing {
         return city;
     }
 
-    public void setCity(City city) {
-        this.city = city;
-    }
-
     public int getIndex() {
         return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 }

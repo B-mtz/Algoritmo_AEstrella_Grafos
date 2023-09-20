@@ -14,6 +14,7 @@ public class GetCitiesLogic implements ActionListener {
     private String name;
     private double latitude, longitude;
     private ArrayList<City> arrayCities = new ArrayList<>();
+    //Constructor
     public GetCitiesLogic(GetCities getCitiesUi){
         this.getCitiesUi = getCitiesUi;
         //Se añaden eventos a los botones
@@ -71,7 +72,6 @@ public class GetCitiesLogic implements ActionListener {
         while (getCitiesUi.modelCity.getRowCount() > 0) {
             getCitiesUi.modelCity.removeRow(0);
         }
-
         //Se guardan los datos en arrayCities
         ReadFileTxt readFileTxt = new ReadFileTxt();
         arrayCities = readFileTxt.readFile();

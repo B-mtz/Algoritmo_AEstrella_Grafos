@@ -51,7 +51,7 @@ public class ReadFileTxt {
             City city = new City(attributes[0],Double.parseDouble(attributes[1]),Double.parseDouble(attributes[2]));
             arrayCities.add(city);
         }
-        System.out.println("CIUDADES CARGADAS CORRECTAMENTE");
+        System.out.println("CIUDADES CARGADAS");
         }catch (Exception exception){
             JOptionPane.showMessageDialog(null,"No se pudo leer el archivo correctamente\n" +
                 "\nRevisa que el formato por linea sea:\nCiudad_Longitud_Latitud");
